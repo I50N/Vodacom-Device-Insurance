@@ -3,304 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vodacom Device Insurance – Upgrades Script</title>
+    <title>Vodacom Device Insurance Scripts</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.8;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; line-height: 1.8; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 1000px; margin: 20px auto 40px; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .logo-container { display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 3px solid #e60000; }
+        img.logo { max-width: 150px; max-height: 80px; object-fit: contain; }
         h1 { color: #1a1a1a; text-align: center; font-size: 1.4em; margin-bottom: 4px; }
-        h2 { color: #e60000; text-align: center; font-size: 1em; font-weight: normal; margin-bottom: 25px; }
-
-        /* Logo bar */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #e60000;
-        }
-
-        img.logo {
-            max-width: 160px;
-            max-height: 90px;
-            object-fit: contain;
-        }
-
-        /* Section heading */
-        .section-heading {
-            background: #e60000;
-            color: #fff;
-            padding: 8px 15px;
-            border-radius: 5px;
-            margin: 25px 0 12px 0;
-            font-size: 1em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Standard script line - blue */
-        .script-line {
-            background: #f0f7ff;
-            border-left: 4px solid #0055a5;
-            padding: 10px 15px;
-            margin: 8px 0;
-            border-radius: 0 5px 5px 0;
-        }
-
-        /* Orange = customer response / agent instruction */
-        .script-line.instruction {
-            background: #fff4ec;
-            border-left: 4px solid #c45911;
-            color: #c45911;
-            font-style: italic;
-        }
-
-        /* Red bold = premium/pricing lines */
-        .script-line.pricing {
-            background: #fff5f5;
-            border-left: 4px solid #e60000;
-            color: #c0392b;
-            font-weight: bold;
-        }
-
-        /* Green = transition/thank you */
-        .script-line.transition {
-            background: #f0fff4;
-            border-left: 4px solid #00b050;
-            color: #1a6b35;
-            font-weight: bold;
-        }
-
-        /* Bold important compliance */
-        .script-line.compliance {
-            background: #fffbe6;
-            border-left: 4px solid #f0a500;
-            font-weight: bold;
-        }
-
-        /* Important warning */
-        .script-line.warning {
-            background: #fff5f5;
-            border-left: 4px solid #e60000;
-            font-weight: bold;
-            color: #c0392b;
-        }
-
-        /* Agent instruction box */
-        .agent-note {
-            background: #f0fff4;
-            border-left: 4px solid #27ae60;
-            padding: 8px 15px;
-            margin: 8px 0;
-            border-radius: 0 5px 5px 0;
-            font-size: 0.9em;
-            color: #1a6b35;
-            font-style: italic;
-        }
-
-        /* Colour legend */
-        .legend {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 0 0 20px 0;
-            font-size: 0.82em;
-            padding: 10px 15px;
-            background: #f9f9f9;
-            border-radius: 6px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .legend-box {
-            width: 16px;
-            height: 16px;
-            border-radius: 3px;
-            flex-shrink: 0;
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 13px;
-            color: #888;
-            text-align: center;
-            border-top: 3px solid #e60000;
-            padding-top: 15px;
-        }
+        h2 { color: #e60000; text-align: center; font-size: 1em; font-weight: normal; margin-bottom: 20px; }
+        .search-bar { display: flex; align-items: center; gap: 10px; background: #f9f9f9; border: 2px solid #ddd; border-radius: 25px; padding: 8px 16px; margin-bottom: 15px; transition: border-color 0.2s; }
+        .search-bar:focus-within { border-color: #e60000; }
+        .search-icon { font-size: 1.1em; color: #999; flex-shrink: 0; }
+        .search-bar input { border: none; background: transparent; outline: none; font-size: 0.95em; width: 100%; color: #333; }
+        .search-bar input::placeholder { color: #aaa; }
+        #search-count { font-size: 0.8em; color: #888; white-space: nowrap; }
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 10px 16px; border: 2px solid #e60000; border-radius: 6px; background: #fff; color: #e60000; font-weight: bold; font-size: 0.95em; cursor: pointer; transition: all 0.2s; }
+        .tab-btn:hover { background: #fff0f0; }
+        .tab-btn.active { background: #e60000; color: #fff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .section-heading { background: #e60000; color: #fff; padding: 8px 15px; border-radius: 5px; margin: 22px 0 10px 0; font-size: 0.95em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .script-line { background: #f0f7ff; border-left: 4px solid #0055a5; padding: 10px 15px; margin: 7px 0; border-radius: 0 5px 5px 0; }
+        .script-line.instruction { background: #fff4ec; border-left: 4px solid #c45911; color: #c45911; font-style: italic; }
+        .script-line.pricing { background: #fff5f5; border-left: 4px solid #e60000; color: #c0392b; font-weight: bold; }
+        .script-line.transition { background: #f0fff4; border-left: 4px solid #00b050; color: #1a6b35; font-weight: bold; }
+        .script-line.compliance { background: #fffbe6; border-left: 4px solid #f0a500; font-weight: bold; }
+        .script-line.warning { background: #fff5f5; border-left: 4px solid #e60000; font-weight: bold; color: #c0392b; }
+        .script-line ul { padding-left: 20px; margin: 4px 0; }
+        mark { background: #ffeb3b; color: #000; border-radius: 2px; padding: 0 2px; }
+        .legend { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 18px 0; font-size: 0.8em; padding: 10px 15px; background: #f9f9f9; border-radius: 6px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-box { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+        footer { margin-top: 40px; font-size: 13px; color: #888; text-align: center; border-top: 3px solid #e60000; padding-top: 15px; }
     </style>
 </head>
 <body>
 <div class="container">
-
-    <!-- Logos -->
     <div class="logo-container">
         <img src="ison-logo2.png" alt="Ison Xperiences Logo" class="logo">
         <img src="vodacom-logo.png" alt="Vodacom Logo" class="logo">
     </div>
+    <h1>Vodacom Device Insurance Scripts</h1>
+    <h2>Ison Xperiences | Agent Calling Scripts</h2>
 
-    <h1>Vodacom Device Insurance – Upgrades Script</h1>
-    <h2>Ison Xperiences | Calling Script</h2>
+    <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search script…" oninput="doSearch()">
+        <span id="search-count"></span>
+    </div>
 
-    <!-- Legend -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('new', this)">📱 New Connections</button>
+        <button class="tab-btn" onclick="switchTab('upgrades', this)">🔄 Upgrades</button>
+    </div>
+
     <div class="legend">
-        <div class="legend-item">
-            <div class="legend-box" style="background:#f0f7ff;border:2px solid #0055a5;"></div>
-            <span>Agent script line</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-box" style="background:#fff4ec;border:2px solid #c45911;"></div>
-            <span style="color:#c45911;">Customer response / Agent instruction</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-box" style="background:#fff5f5;border:2px solid #e60000;"></div>
-            <span style="color:#c0392b;">Pricing / Important warning</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-box" style="background:#f0fff4;border:2px solid #00b050;"></div>
-            <span style="color:#1a6b35;">Transition / Thank you</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-box" style="background:#fffbe6;border:2px solid #f0a500;"></div>
-            <span>Compliance / Disclosure</span>
-        </div>
+        <div class="legend-item"><div class="legend-box" style="background:#f0f7ff;border:2px solid #0055a5;"></div><span>Agent script line</span></div>
+        <div class="legend-item"><div class="legend-box" style="background:#fff4ec;border:2px solid #c45911;"></div><span style="color:#c45911;">Customer response / Instruction</span></div>
+        <div class="legend-item"><div class="legend-box" style="background:#fff5f5;border:2px solid #e60000;"></div><span style="color:#c0392b;">Pricing / Warning</span></div>
+        <div class="legend-item"><div class="legend-box" style="background:#f0fff4;border:2px solid #00b050;"></div><span style="color:#1a6b35;">Transition</span></div>
+        <div class="legend-item"><div class="legend-box" style="background:#fffbe6;border:2px solid #f0a500;"></div><span>Compliance / Disclosure</span></div>
     </div>
 
-    <!-- OPENING -->
-    <div class="section-heading">Opening</div>
+    <!-- NEW CONNECTIONS -->
+    <div id="tab-new" class="tab-content active">
+        <div class="section-heading">Opening</div>
+        <div class="script-line">Good day… My name is <strong>___________</strong> and I'm calling you from <strong>ISON Xperiences</strong> on behalf of <strong>Vodacom Insurance Company Limited</strong>, a licensed non-life insurer.</div>
+        <div class="script-line">How are you today…? That's Great!! I need just a few minutes of your time to tell you about the exciting new offer that you have qualified for as a valued Vodacom customer. Is that fine… Thank you so much…</div>
+        <div class="script-line instruction">[If NO: reschedule a time and date] — Ensure customer ends call before agent notes any request to Opt Out of further Direct Marketing. If Customer elects to Opt Out, call centre to send this MSISDN to Vodacom to be placed on DNC Database.</div>
+        <div class="script-line compliance">Please note that our calls are being recorded and can be made available to you upon your request.</div>
 
-    <div class="script-line">Good day, may I please speak to <strong>Mr/Mrs ______________</strong>?</div>
-    <div class="script-line">My name is <strong>(your name)</strong> and I'm calling you from <strong>Ison Xperiences</strong> on behalf of <strong>Vodacom</strong>. I'd like to tell you about Vodacom's exclusive Mobile Insurance cover for your <strong>NEWLY UPGRADED</strong> device. It'll take only a few minutes of your time. Is that okay?</div>
+        <div class="section-heading">Pitch</div>
+        <div class="script-line">Firstly, Vodacom would like to say a very big <strong>THANK YOU</strong> for your ongoing <strong>Support</strong>. It is highly appreciated on our side.</div>
+        <div class="script-line">The reason we are calling you is that we have noticed that you recently bought a new <strong>smart-phone / Device</strong> but did not activate our <strong>Taylor Made Device Insurance Cover</strong> which will assist you in the event that your phone/device were to get lost, stolen or accidentally damaged.</div>
+        <div class="script-line">As a Valued Vodacom customer, with our Taylor Made Device Insurance Cover, we will insure your Phone/Device according to its value. The <strong>great</strong> thing is that there are <strong>no waiting periods</strong> — your phone/device is covered <strong>immediately</strong> once you drop this call. You can visit any Vodacom Store nationwide to <strong>make a claim</strong>.</div>
+        <div class="script-line">Isn't that GREAT…? (Acknowledge what the customer is saying)</div>
+        <div class="script-line pricing">The first premium will include one month's advance premium and may include a pro-rata premium. The following monthly deductions will be for the contribution of <strong>only R_xx__ per month</strong> on a month-to-month basis offering you flexibility if times get tough.</div>
+        <div class="script-line compliance"><strong>So, with that being said, can I go ahead and activate this cover for you…?</strong></div>
+        <div class="script-line instruction">If NO — handle objection</div>
 
-    <div class="script-line instruction">&lt;Customer: NO&gt; — Ensure customer ends call before agent notes any request to Opt Out of further Direct Marketing. If Customer elects to Opt Out, call centre to send this MSISDN to Vodacom to be placed on DNC Database.</div>
-    <div class="script-line instruction">Use relevant / suitable objection handling</div>
-    <div class="script-line instruction">&lt;Customer: YES&gt; — Proceed below</div>
+        <div class="section-heading">Disclosure &amp; Compliance</div>
+        <div class="script-line compliance">Before we continue, please be advised that I am employed as a representative working under supervision. My employer, <strong>iSON Xperiences (PTY Ltd)</strong> has been given a mandate by <strong>Vodacom Insurance Company</strong> to sell this policy on their behalf and earn a once off fee. iSON Xperiences (PTY Ltd) is an authorised Financial Services Provider, holds Professional Indemnity Insurance and supports the FAIS Ombud.</div>
+        <div class="script-line compliance">To provide you with products and services, you are required to give us, our service providers and partners permission to process your personal information. This includes your personal, handset device and payment history. Your information will remain confidential and secure.</div>
+        <div class="script-line compliance"><strong>Do you agree to the use and secure storage of your personal information by Vodacom Insurance Company and its service providers for the purposes of providing you with the services related to this benefit? (Yes/No)</strong></div>
+        <div class="script-line warning">(Clear 'yes' or 'no' to be obtained for the question above)</div>
+        <div class="script-line">Your personal information will be stored, processed and used only by Vodacom Insurance Company and its service providers to the extent necessary. You may refer to Vodacom's privacy notice on the Vodacom website for a description of how your personal information is processed.</div>
 
-    <!-- PITCH -->
-    <div class="section-heading">Pitch — Cover Options</div>
+        <div class="section-heading">Security Confirmation</div>
+        <div class="script-line">For security and debit order purposes, please may I confirm the following:
+            <ul><li>Initials</li><li>ID Number</li><li>Address</li><li>One contact number</li></ul>
+        </div>
 
-    <div class="script-line">Firstly, <strong>THANK YOU</strong> for being a loyal Vodacom customer. We know that <strong>upgrading</strong> your device is exciting, but more importantly, we want to ensure that it's adequately covered in the event of loss, accidental damage or theft. So, we'd love to offer you <strong>Comprehensive Cover</strong> at an affordable monthly premium!</div>
+        <div class="section-heading">Policy Activation</div>
+        <div class="script-line">So, to confirm, I have activated insurance Band <em>(e.g., if the phone costs R3000 the band will be R2500–R3500)</em> linked to your mobile number ____. You are covered for R(premium)___ in the event of theft or accidental damage. Please note that your premiums are not based on the value of the phone — at the claims stage, the settlement amount is based on the value of the phone at that time.</div>
+        <div class="script-line warning">Excess applicable: <strong>10% of repair cost</strong> (min R100, max R1000) and <strong>15% of replacement cost</strong> (min R100).</div>
+        <div class="script-line pricing">The following monthly deductions will be for the contribution of <strong>only R_xx__ per month</strong> on a month-to-month basis.</div>
+        <div class="script-line instruction">&lt;Customer name&gt;, do you give Vodacom Insurance Company permission to add the monthly premium charge onto your Vodacom Telco subscription bill?</div>
+        <div class="script-line warning">&lt;Wait for a clear YES — if NO, then order is not authorized&gt;</div>
 
-    <div class="script-line pricing">Mr/Mrs/Ms, for only <strong>Rxxx [quote premium based on Comprehensive]</strong> per month, we will replace your device with a new or similar one of the same value or subject to the Maximum Limit of Indemnity. Your device will also be covered in the case of Accidental Damage, and I will tell you more about that now…</div>
+        <div class="section-heading">Debit Order Details</div>
+        <div class="script-line">On which day of the month can we set your debit to go off? <em>(Debit Date)</em></div>
+        <div class="script-line">Which Bank can we debit this premium from? <em>(Name of Bank)</em></div>
+        <div class="script-line">Whose name is this account on? <em>(Account Holder Name)</em></div>
+        <div class="script-line">Is this a savings or cheque account? <em>(Account Type)</em></div>
+        <div class="script-line">What's the account number for this bank account? <em>(Account Number)</em></div>
 
-    <div class="script-line pricing">You have a second option of <strong>Accidental Damage Cover for only Rxxx [quote premium based on Accidental Damage]</strong> per month and this cover is limited to accidental damage ONLY claims such as liquid or screen damage.</div>
+        <div class="section-heading">Terms &amp; Conditions</div>
+        <div class="script-line">We will be sending your policy documents to your email ____. Please go over it and keep it in a safe place so that in the event of a claim, you have it on hand.</div>
+        <div class="script-line">This policy is administered by <strong>Smollan Financial Services</strong> (FSP No. 46482) and the insurer is <strong>Vodacom Insurance Company</strong>. For all inquiries, claims and complaints: <strong>082 1952</strong> or <a href="mailto:servicing.deviceinsurance@vodacom.co.za">servicing.deviceinsurance@vodacom.co.za</a>.</div>
+        <div class="script-line warning">If your insured device is used with any other SIM CARD not listed, there will be <strong>no cover</strong>.</div>
+        <div class="script-line">You are obliged to disclose any material facts — failure to do so may result in your claim being declined.</div>
+        <div class="script-line warning">If your premium is not paid, you <strong>MUST</strong> pay within <strong>30 days</strong> from the due date to maintain your Policy. If no premium is received within that time, your Policy will be cancelled.</div>
+        <div class="script-line">Vodacom Insurance has the right to change your premium at any time, subject to <strong>31 days written notice</strong>.</div>
+        <div class="script-line">You may cancel the policy within <strong>30 days</strong> of receiving your policy documents. Premiums paid will be refunded provided no claims were submitted. After the initial 30 days, no benefits will be paid and no premiums refunded.</div>
+        <div class="script-line">If your complaint is not resolved to your satisfaction, contact the <strong>National Ombudsman Scheme</strong>: <a href="mailto:info@infosa.co.za">info@infosa.co.za</a> or <strong>0860 800900</strong>.</div>
 
-    <div class="script-line">What this means is that if your device is repairable, Vodacom Insurance will pay a reasonable cost to restore it to the condition it was in before the accidental damage occurred. However, if your device is beyond repair (as determined by an authorized Vodacom repair center), Vodacom Insurance will replace your device with a new or similar device of the same value, subject to the Maximum Limit of Indemnity.</div>
-
-    <div class="script-line instruction">*** If client chooses Accidental Damage Cover ***</div>
-
-    <div class="script-line">Mr/Mrs/Ms, it is important to note that this specific cover is limited to <strong>DAMAGE only</strong> claims. This means that if your device is damaged, APPROVED repairs will be covered in terms of this policy subject to Terms and Conditions. If your Device is <strong>lost or stolen, it will NOT be covered</strong> by this policy.</div>
-
-    <div class="script-line">As an added benefit, while travelling abroad, you will be covered for <strong>worldwide trips, for up to 30 days per trip</strong>, provided your device is in use with a Vodacom SIM listed on the schedule. Please note, that you will need to activate roaming to enjoy this benefit.</div>
-
-    <div class="script-line">Vodacom understands that life happens, so we've eliminated waiting periods and long queues, and that means that when you drop this call, your device will have <strong>immediate</strong> cover against theft and even accidental damage.</div>
-
-    <div class="script-line compliance"><strong>Mr/Mrs/Ms, can we proceed?</strong></div>
-
-    <div class="script-line instruction">&lt;Customer: NO&gt; — Use relevant / suitable objection handling</div>
-    <div class="script-line instruction">&lt;Customer: YES&gt; — Proceed to Disclosure</div>
-
-    <!-- DISCLOSURE -->
-    <div class="section-heading">Disclosure &amp; Compliance</div>
-
-    <div class="script-line compliance">Before I continue, I just need to mention that our calls are recorded for your protection and to help us improve our service to you. A copy of this call can be made available to you upon request.</div>
-
-    <div class="script-line compliance">iSON Xperiences Pty Ltd is a licensed Financial Service Provider with <strong>FSP nr 50518</strong> and is authorized to sell short-term insurance products. We hold professional indemnity and fidelity insurance.</div>
-
-    <div class="script-line compliance">This Policy is underwritten by <strong>Vodacom Insurance Company</strong> and administered by <strong>Smollan Financial Services</strong>, a financial services provider with <strong>FSP no. 46482</strong>.</div>
-
-    <div class="script-line compliance">Please note that I am not authorized to give you advice and can only provide you with facts about the benefits, features and exclusions of the product so that you can make an informed decision.</div>
-
-    <div class="script-line compliance">To provide you with products and services, you are required to give us, our service providers and partners permission to process your personal information. This includes your personal, handset device and payment history. Your information will remain confidential and secure.</div>
-
-    <div class="script-line compliance"><strong>Do you agree to the use and secure storage of your personal information by Vodacom Insurance Company and its service providers for the purposes of providing you with the services related to this benefit? (Yes/No)</strong></div>
-
-    <div class="script-line warning">(Clear 'yes' or 'no' to be obtained for the question above)</div>
-
-    <div class="script-line">Your personal information will be stored, processed and used only by Vodacom Insurance Company and its service providers to the extent that is necessary to provide the contracted services. You may refer to Vodacom's privacy notice on the Vodacom website for a description of how your personal information is processed.</div>
-
-    <!-- SECURITY CONFIRMATION -->
-    <div class="section-heading">Security Confirmation</div>
-
-    <div class="script-line">For security and debit order purposes, please may I confirm the following:</div>
-    <div class="script-line">
-        <ul>
-            <li>Initials</li>
-            <li>ID number</li>
-            <li>Address</li>
-            <li>One Contact Number</li>
-        </ul>
+        <div class="section-heading">Closing</div>
+        <div class="script-line compliance">Is all the information I've provided about the product clear to you? (YES/No — if No, clarify any questions)</div>
+        <div class="script-line transition">Mr/Mrs, we're all done — thank you for your time and enjoy the rest of your day!</div>
     </div>
 
-    <!-- ACTIVATION -->
-    <div class="section-heading">Policy Activation</div>
+    <!-- UPGRADES -->
+    <div id="tab-upgrades" class="tab-content">
+        <div class="section-heading">Opening</div>
+        <div class="script-line">Good day, may I please speak to <strong>Mr/Mrs ______________</strong>?</div>
+        <div class="script-line">My name is <strong>(your name)</strong> and I'm calling you from <strong>Ison Xperiences</strong> on behalf of <strong>Vodacom</strong>. I'd like to tell you about Vodacom's exclusive Mobile Insurance cover for your <strong>NEWLY UPGRADED</strong> device. It'll take only a few minutes of your time. Is that okay?</div>
+        <div class="script-line instruction">&lt;Customer: NO&gt; — Ensure customer ends call before agent notes any request to Opt Out. If Customer elects to Opt Out, call centre to send MSISDN to Vodacom for DNC Database.</div>
+        <div class="script-line instruction">Use relevant / suitable objection handling</div>
+        <div class="script-line instruction">&lt;Customer: YES&gt; — Proceed below</div>
 
-    <div class="script-line instruction">Mr / Mrs / Ms, I have activated <strong>(Accidental Damage or Comprehensive)</strong> on insurance Band _______ that is linked to your mobile number _________. Your device is covered for R______ in the event of theft, loss or accidental damage &lt;select the cover specific option&gt;. Your monthly premium will be R_____.</div>
+        <div class="section-heading">Pitch — Cover Options</div>
+        <div class="script-line">Firstly, <strong>THANK YOU</strong> for being a loyal Vodacom customer. We know that <strong>upgrading</strong> your device is exciting, but more importantly, we want to ensure that it's adequately covered in the event of loss, accidental damage or theft. We'd love to offer you <strong>Comprehensive Cover</strong> at an affordable monthly premium!</div>
+        <div class="script-line pricing">Mr/Mrs/Ms, for only <strong>Rxxx [quote premium based on Comprehensive]</strong> per month, we will replace your device with a new or similar one of the same value, subject to the Maximum Limit of Indemnity. Your device will also be covered for Accidental Damage.</div>
+        <div class="script-line pricing">You have a second option: <strong>Accidental Damage Cover for only Rxxx [quote premium based on Accidental Damage]</strong> per month — limited to accidental damage ONLY claims such as liquid or screen damage.</div>
+        <div class="script-line">If your device is repairable, Vodacom Insurance will pay a reasonable cost to restore it. If beyond repair (as determined by an authorized Vodacom repair center), Vodacom Insurance will replace it with a new or similar device of the same value, subject to the Maximum Limit of Indemnity.</div>
+        <div class="script-line instruction">*** If client chooses Accidental Damage Cover ***</div>
+        <div class="script-line">Mr/Mrs/Ms, this cover is limited to <strong>DAMAGE only</strong> claims. If your Device is <strong>lost or stolen, it will NOT be covered</strong> by this policy.</div>
+        <div class="script-line">As an added benefit, while travelling abroad you will be covered for <strong>worldwide trips up to 30 days per trip</strong>, provided your device is in use with a Vodacom SIM listed on the schedule. You will need to activate roaming to enjoy this benefit.</div>
+        <div class="script-line">There are <strong>no waiting periods</strong> — your device has <strong>immediate</strong> cover against theft and accidental damage once you drop this call.</div>
+        <div class="script-line compliance"><strong>Mr/Mrs/Ms, can we proceed?</strong></div>
+        <div class="script-line instruction">&lt;Customer: NO&gt; — Use relevant / suitable objection handling</div>
+        <div class="script-line instruction">&lt;Customer: YES&gt; — Proceed to Disclosure</div>
 
-    <div class="script-line">The monthly premium will be added to your monthly Vodacom Telco bill.</div>
+        <div class="section-heading">Disclosure &amp; Compliance</div>
+        <div class="script-line compliance">Before I continue, our calls are recorded for your protection and to help us improve our service. A copy can be made available upon request.</div>
+        <div class="script-line compliance">iSON Xperiences Pty Ltd is a licensed Financial Service Provider with <strong>FSP nr 50518</strong>, authorized to sell short-term insurance products. We hold professional indemnity and fidelity insurance.</div>
+        <div class="script-line compliance">This Policy is underwritten by <strong>Vodacom Insurance Company</strong> and administered by <strong>Smollan Financial Services</strong> (FSP no. 46482).</div>
+        <div class="script-line compliance">Please note that I am not authorized to give you advice — I can only provide facts about the benefits, features and exclusions so that you can make an informed decision.</div>
+        <div class="script-line compliance">You are required to give us, our service providers and partners permission to process your personal information. This includes your personal, handset device and payment history. Your information will remain confidential and secure.</div>
+        <div class="script-line compliance"><strong>Do you agree to the use and secure storage of your personal information by Vodacom Insurance Company and its service providers? (Yes/No)</strong></div>
+        <div class="script-line warning">(Clear 'yes' or 'no' to be obtained for the question above)</div>
+        <div class="script-line">Your personal information will be stored and used only by Vodacom Insurance Company and its service providers to the extent necessary. You may refer to Vodacom's privacy notice on the Vodacom website.</div>
 
-    <div class="script-line compliance">Mr / Mrs, do you give Vodacom Insurance Company permission to add the monthly premium charge onto your Vodacom Telco subscription bill?</div>
+        <div class="section-heading">Security Confirmation</div>
+        <div class="script-line">For security and debit order purposes, please may I confirm the following:
+            <ul><li>Initials</li><li>ID number</li><li>Address</li><li>One Contact Number</li></ul>
+        </div>
 
-    <div class="script-line warning">&lt;Wait for a clear YES — if NO, then order is not authorized&gt;</div>
+        <div class="section-heading">Policy Activation</div>
+        <div class="script-line instruction">Mr / Mrs / Ms, I have activated <strong>(Accidental Damage or Comprehensive)</strong> on insurance Band _______ linked to your mobile number _________. Your device is covered for R______ in the event of theft, loss or accidental damage. Your monthly premium will be R_____.</div>
+        <div class="script-line">The monthly premium will be added to your monthly Vodacom Telco bill.</div>
+        <div class="script-line compliance">Mr / Mrs, do you give Vodacom Insurance Company permission to add the monthly premium charge onto your Vodacom Telco subscription bill?</div>
+        <div class="script-line warning">&lt;Wait for a clear YES — if NO, then order is not authorized&gt;</div>
+        <div class="script-line transition">Thank you for being so patient Mr / Mrs (Surname) — we are nearly done. I now need to take you through some additional information about your policy.</div>
 
-    <div class="script-line transition">Thank you for being so patient Mr / Mrs (Surname), we are nearly done. I now need to take you through some additional information about your policy.</div>
+        <div class="section-heading">Terms &amp; Conditions</div>
+        <div class="script-line">Please ensure sufficient funds are available to avoid banking fees on rejected debit orders.</div>
+        <div class="script-line warning">If your premium is not paid, you <strong>MUST</strong> pay within <strong>30 days</strong> from the due date to maintain your Policy. If no premium is received within that time, your Policy will be cancelled.</div>
+        <div class="script-line">Vodacom Insurance has the right to change your premium at any time, subject to <strong>30 days written notice</strong>.</div>
+        <div class="script-line warning">Excess applicable: <strong>10% of repair cost</strong> (min R100, max R1000) and <strong>15% of replacement cost</strong> (min R100). Your excess will be <strong>doubled</strong> if your claim occurs within 12 months of a previous successful claim under the same benefit option.</div>
+        <div class="script-line">Please note that premiums are not based on the value of the phone — at the claims stage, the settlement amount is based on the value of the phone at that time. Vodacom Insurance will repair or replace at their sole discretion — <strong>no cash settlements</strong>.</div>
+        <div class="script-line warning">If your insured device is used with any other SIM CARD not listed, there will be <strong>no cover</strong>.</div>
+        <div class="script-line">You are obliged to disclose any material facts — failure to do so may result in your claim being declined.</div>
+        <div class="script-line">You may cancel within <strong>30 days</strong> of receiving your policy documents for a full refund (provided no claims). After the initial 30 days, no benefits will be paid and no premiums refunded.</div>
 
-    <!-- TERMS & CONDITIONS -->
-    <div class="section-heading">Terms &amp; Conditions</div>
+        <div class="section-heading">Closing</div>
+        <div class="script-line">For claims, queries and complaints contact Vodacom Insurance on <strong>082 1952</strong> or <a href="mailto:servicing.deviceinsurance@vodacom.co.za">servicing.deviceinsurance@vodacom.co.za</a>.</div>
+        <div class="script-line">If your complaint is not resolved, contact the <strong>National Ombudsman Scheme</strong>: <a href="mailto:info@infosa.co.za">info@infosa.co.za</a> or <strong>0860 800900</strong>, or the <strong>FAIS Ombudsman</strong> on <strong>0861 32 47 66</strong>.</div>
+        <div class="script-line">We will forward your policy documents to your email _______. Please keep it in a safe place for use in the event of a claim.</div>
+        <div class="script-line transition">Mr/Mrs, thank you for your time and enjoy the rest of your day!</div>
+    </div>
 
-    <div class="script-line">Please ensure sufficient funds are available to avoid banking fees on rejected debit orders. Your Policy remains in place for as long as your premiums are paid.</div>
-
-    <div class="script-line warning">If your premium is not paid, you <strong>MUST</strong> pay within <strong>30 days</strong> from the date the premium was due in order to maintain your Policy. If no premium is received within that time, your Policy will be cancelled.</div>
-
-    <div class="script-line">Please also note that Vodacom Insurance has the right to change your premium at any time, subject to <strong>30 days written notice</strong> to you.</div>
-
-    <div class="script-line warning">With an excess applicable of <strong>10% of repair cost</strong> (Subject to a minimum of R100 and a maximum of R1000) and <strong>15% of the replacement cost</strong> (Subject to a minimum of R100).</div>
-
-    <div class="script-line">The excess payable for replacements is <strong>15% of the replacement cost</strong> of the insured device. Your excess will be <strong>doubled</strong> if your claim occurs within 12 months of a previous successful claim, under the same benefit option on this Policy. Please note that your premiums are not based on the value of the phone and at the claims stage, the settlement amount is based on the value of the phone at that time.</div>
-
-    <div class="script-line">In the event of a successful claim, Vodacom Insurance will repair or replace your device at their sole discretion and will <strong>not pay out a cash settlement</strong>.</div>
-
-    <div class="script-line warning">If your insured device is being used with any other SIM CARD that was not listed, there will be <strong>no cover</strong>.</div>
-
-    <div class="script-line">You are obliged to disclose any material facts including information that may affect your policy, failure to do so may result in your claim being declined by the insurer.</div>
-
-    <div class="script-line">You may cancel the policy within <strong>30 days</strong> of receiving your policy documents. Any premiums paid during the 30 days will be refunded to you, provided you have NOT submitted any claims in that time. Should the policy lapse or you cancel the policy after the initial 30 days, no benefits will be paid, and no premiums will be refunded.</div>
-
-    <!-- CLOSING -->
-    <div class="section-heading">Closing</div>
-
-    <div class="script-line">We will be forwarding your policy documents with the full terms and conditions to your email _______. Please familiarize yourself with it and keep it in a safe place so that you have it handy in the event of a claim.</div>
-
-    <div class="script-line">For claims, queries, complaints, and upgrades to your device please contact Vodacom Insurance on <strong>082 1952</strong> or email <a href="mailto:servicing.deviceinsurance@vodacom.co.za">servicing.deviceinsurance@vodacom.co.za</a>.</div>
-
-    <div class="script-line">If your complaint is not resolved to your satisfaction, after following the internal complaints resolution procedure, the <strong>National Ombudsman Scheme</strong> can be contacted by Email at: <a href="mailto:info@infosa.co.za">info@infosa.co.za</a> or call: <strong>0860 800900</strong>, or the <strong>FAIS Ombudsman</strong> on <strong>0861 32 47 66</strong> for consideration.</div>
-
-    <div class="script-line transition">Mr/Mrs, thank you for your time and enjoy the rest of your day!</div>
-
-    <footer>
-        <p>Vodacom Device Insurance | Ison Xperiences | For Agent Use Only | C2 General</p>
-    </footer>
-
+    <footer><p>Vodacom Device Insurance | Ison Xperiences | For Agent Use Only | C2 General</p></footer>
 </div>
+
+<script>
+    function switchTab(tab, btn) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        btn.classList.add('active');
+        doSearch();
+    }
+
+    function doSearch() {
+        const query = document.getElementById('searchInput').value.trim().toLowerCase();
+        const countEl = document.getElementById('search-count');
+
+        document.querySelectorAll('.tab-content mark').forEach(m => {
+            const parent = m.parentNode;
+            parent.replaceChild(document.createTextNode(m.textContent), m);
+            parent.normalize();
+        });
+
+        if (!query) { countEl.textContent = ''; return; }
+
+        let total = 0;
+        const activeTab = document.querySelector('.tab-content.active');
+        const walker = document.createTreeWalker(activeTab, NodeFilter.SHOW_TEXT, null, false);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(node => {
+            const text = node.textContent;
+            if (text.toLowerCase().includes(query)) {
+                const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                const highlighted = text.replace(regex, match => { total++; return '<mark>' + match + '</mark>'; });
+                const span = document.createElement('span');
+                span.innerHTML = highlighted;
+                node.parentNode.replaceChild(span, node);
+            }
+        });
+
+        countEl.textContent = total > 0 ? total + ' match' + (total > 1 ? 'es' : '') : 'No matches';
+    }
+</script>
 </body>
 </html>
