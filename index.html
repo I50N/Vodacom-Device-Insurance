@@ -37,6 +37,12 @@
         .legend-item { display: flex; align-items: center; gap: 6px; }
         .legend-box { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
         footer { margin-top: 40px; font-size: 13px; color: #888; text-align: center; border-top: 3px solid #e60000; padding-top: 15px; }
+    
+        #priceTable { font-size: 0.82em; }
+        #priceTable td, #priceTable th { padding: 7px 10px; }
+        #priceTable td.comp { color: #0055a5; font-weight: bold; }
+        #priceTable td.acc { color: #c0392b; font-weight: bold; }
+
     </style>
 </head>
 <body>
@@ -57,6 +63,7 @@
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('new', this)">📱 New Connections</button>
         <button class="tab-btn" onclick="switchTab('upgrades', this)">🔄 Upgrades</button>
+        <button class="tab-btn" onclick="switchTab('pricelist', this)">💰 Price List</button>
     </div>
 
     <div class="legend">
@@ -186,6 +193,916 @@
         <div class="script-line transition">Mr/Mrs, thank you for your time and enjoy the rest of your day!</div>
     </div>
 
+    
+    <!-- PRICE LIST TAB -->
+    <div id="tab-pricelist" class="tab-content">
+
+        <div class="section-heading">Premium Bands — Quick Reference</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+            <div style="flex:1;min-width:250px;">
+                <h3 style="color:#0055a5;margin-bottom:8px;font-size:0.95em;">📱 Comprehensive (Cell/Device)</h3>
+                <table>
+                    <thead><tr><th>Device Value (Incl. VAT)</th><th>Monthly Premium</th></tr></thead>
+                    <tbody><tr><td>R0 – R750</td><td><strong>R20</strong></td></tr><tr><td>R751 – R1,500</td><td><strong>R31</strong></td></tr><tr><td>R1,501 – R2,500</td><td><strong>R42</strong></td></tr><tr><td>R2,501 – R3,500</td><td><strong>R63</strong></td></tr><tr><td>R3,501 – R5,000</td><td><strong>R85</strong></td></tr><tr><td>R5,001 – R7,500</td><td><strong>R115</strong></td></tr><tr><td>R7,501 – R10,000</td><td><strong>R149</strong></td></tr><tr><td>R10,001 – R15,000</td><td><strong>R200</strong></td></tr><tr><td>R15,001 – R20,000</td><td><strong>R255</strong></td></tr><tr><td>R20,001 – R25,000</td><td><strong>R336</strong></td></tr><tr><td>R25,001 – R30,000</td><td><strong>R397</strong></td></tr><tr><td>R30,001 – R35,000</td><td><strong>R467</strong></td></tr><tr><td>R35,001 – R40,000</td><td><strong>R543</strong></td></tr><tr><td>R40,001 – R45,000</td><td><strong>R611</strong></td></tr><tr><td>R45,001 – R50,000</td><td><strong>R667</strong></td></tr></tbody>
+                </table>
+            </div>
+            <div style="flex:1;min-width:250px;">
+                <h3 style="color:#c0392b;margin-bottom:8px;font-size:0.95em;">🛡️ Accidental Damage Only</h3>
+                <table>
+                    <thead><tr><th>Device Value (Incl. VAT)</th><th>Monthly Premium</th></tr></thead>
+                    <tbody><tr><td>R0 – R2,500</td><td><strong>R20</strong></td></tr><tr><td>R2,501 – R5,000</td><td><strong>R30</strong></td></tr><tr><td>R5,001 – R10,000</td><td><strong>R60</strong></td></tr><tr><td>R10,001 – R20,000</td><td><strong>R80</strong></td></tr><tr><td>R20,001 – R30,000</td><td><strong>R121</strong></td></tr><tr><td>R30,001 – R35,000</td><td><strong>R195</strong></td></tr><tr><td>R35,001 – R40,000</td><td><strong>R210</strong></td></tr><tr><td>R40,001 – R45,000</td><td><strong>R235</strong></td></tr><tr><td>R45,001 – R50,000</td><td><strong>R255</strong></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-heading">Device Price List — June 2026</div>
+
+        <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">
+            <div class="search-bar" style="margin:0;flex:1;min-width:200px;">
+                <span>🔍</span>
+                <input type="text" id="priceSearchInput" placeholder="Search device name or brand…" oninput="filterPriceList()">
+            </div>
+            <select id="brandFilter" onchange="filterPriceList()" style="padding:8px 12px;border:2px solid #ddd;border-radius:20px;font-size:0.9em;outline:none;">
+                <option value="">All Brands</option>
+                <option value="ACCESSORIES">ACCESSORIES</option>
+<option value="AGM">AGM</option>
+<option value="ALCATEL">ALCATEL</option>
+<option value="APPLE">APPLE</option>
+<option value="APPLE CELLSELL">APPLE CELLSELL</option>
+<option value="BLINDSHELL">BLINDSHELL</option>
+<option value="HISENSE">HISENSE</option>
+<option value="HMD">HMD</option>
+<option value="HONOR">HONOR</option>
+<option value="HUAWEI">HUAWEI</option>
+<option value="INSTACOM">INSTACOM</option>
+<option value="ITEL">ITEL</option>
+<option value="MOBICEL">MOBICEL</option>
+<option value="MODEMS">MODEMS</option>
+<option value="MOTOROLA">MOTOROLA</option>
+<option value="NOKIA">NOKIA</option>
+<option value="NOTHING">NOTHING</option>
+<option value="OPPO">OPPO</option>
+<option value="REALME">REALME</option>
+<option value="SAMSUNG">SAMSUNG</option>
+<option value="SPECTRA">SPECTRA</option>
+<option value="TABLETS & LAPTOPS">TABLETS & LAPTOPS</option>
+<option value="TCL">TCL</option>
+<option value="VIVO">VIVO</option>
+<option value="XIAOMI">XIAOMI</option>
+<option value="ZTE">ZTE</option>
+            </select>
+            <span id="price-count" style="font-size:0.82em;color:#888;white-space:nowrap;"></span>
+        </div>
+
+        <div style="overflow-x:auto;">
+        <table id="priceTable">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Device Description</th>
+                    <th>Cost (Incl. VAT)</th>
+                    <th style="background:#0055a5;">Comp Premium</th>
+                    <th style="background:#c0392b;">Acc Damage Premium</th>
+                </tr>
+            </thead>
+            <tbody id="priceTableBody">
+<tr data-brand="AGM"><td>AGM</td><td>AGM H6 Black 4/128GB 4G</td><td>R4,932.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="AGM"><td>AGM</td><td>AGM P2 Black 8/256GB 4G</td><td>R7,082.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="ALCATEL"><td>ALCATEL</td><td>Alcatel 2020X Grey Senior Phone 16MB 2G SS</td><td>R171.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 12 Green 4/64GB 5G</td><td>R9,773.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 13 Midnight 4/128GB 5G</td><td>R10,325.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 14 Midnight 128GB 5G</td><td>R12,637.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 15 Black 128GB 5G</td><td>R13,982.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16e Black 8/128GB</td><td>R11,498.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16e White 8/128GB</td><td>R11,498.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16e Black 8/256GB</td><td>R14,787.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16e White 8/256GB</td><td>R14,787.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16e Black 8/512GB</td><td>R19,318.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16e White 8/512GB</td><td>R19,318.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Black 128GB 5G</td><td>R16,777.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 White 128GB 5G</td><td>R16,777.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pink 128GB 5G</td><td>R16,777.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Ultramarine 128GB 5G</td><td>R16,777.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Teal 128GB 5G</td><td>R16,777.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Black 256GB 5G</td><td>R19,721.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Black 512GB 5G</td><td>R24,746.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pro Natural Titanium 128GB 5G</td><td>R22,228.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pro  Desert Titanium 1TB 5G</td><td>R32,877.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pro Natural Titanium 1TB 5G</td><td>R32,877.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pro Max Black Titanium 512GB 5G</td><td>R32,302.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pro Max  Black Titanium 1TB 5G</td><td>R37,327.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 16 Pro Max  Desert Titanium 1TB 5G</td><td>R37,327.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17e Black 256GB 5G</td><td>R13,683.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17e White 256GB 5G</td><td>R13,683.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17e  Soft Pink 256GB 5G</td><td>R13,683.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17e Black 512GB 5G</td><td>R18,306.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>AppleiPhone 17e White 512GB 5G</td><td>R18,306.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17e Soft Pink 512GB 5G</td><td>R18,306.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Black 256GB</td><td>R18,640.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 White 256GB</td><td>R18,640.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Mist Blue 256GB</td><td>R18,640.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Lavender 256GB</td><td>R18,640.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Sage 256GB</td><td>R18,640.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Black 512GB</td><td>R23,976.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 White 512GB</td><td>R23,976.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Mist Blue 512GB</td><td>R23,976.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Lavender 512GB</td><td>R23,976.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Sage 512GB</td><td>R23,976.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Black 256GB (eSim only)</td><td>R20,365.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air White 256GB  (eSim only)</td><td>R20,365.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Light Gold 256GB  (eSim only)</td><td>R20,365.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Sky Blue 256GB  (eSim only)</td><td>R20,365.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Black 512GB  (eSim only)</td><td>R19,675.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air White 512GB  (eSim only)</td><td>R19,675.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Light Gold 512GB  (eSim only)</td><td>R19,675.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Sky Blue 512GB  (eSim only)</td><td>R19,675.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Black 1TB  (eSim only)</td><td>R22,952.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air White 1TB  (eSim only)</td><td>R22,952.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Light Gold 1TB  (eSim only)</td><td>R22,952.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone Air Sky Blue 1TB (eSim only)</td><td>R22,952.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Silver 256GB</td><td>R26,379.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Cosmic Orange 256GB</td><td>R26,379.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad A16 Silver Wi-Fi 128GB</td><td>R6,967.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Deep Blue 256GB</td><td>R26,379.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Silver 512GB</td><td>R31,175.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Cosmic Orange 512GB</td><td>R31,175.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Deep Blue 512GB</td><td>R31,175.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Silver 1TB</td><td>R35,982.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Cosmic Orange 1TB</td><td>R35,982.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Deep Blue 1TB</td><td>R35,982.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Silver 256GB</td><td>R28,783.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Cosmic Orange 256GB</td><td>R28,783.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max D Blue 256GB</td><td>R28,783.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Silver 512GB</td><td>R33,578.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Cosmic Orange 512GB</td><td>R33,578.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Deep Blue 512GB</td><td>R33,578.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Silver 1TB</td><td>R38,385.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Cosmic Orange 1TB</td><td>R38,385.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Deep Blue 1TB</td><td>R38,385.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Silver 2TB</td><td>R47,976.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Cosmic Orange 2TB</td><td>R47,976.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>Apple iPhone 17 Pro Max Deep Blue 2TB</td><td>R47,976.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>10.2 inch iPad WiFi Cell Space Grey  3/64GB 4G (9th Gen)</td><td>R9,601.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>10.9 iPad Silver 64GB 5G Wifi eSim</td><td>R10,613.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad A16 Silver Wi-Fi eSim 128GB 5G</td><td>R9,969.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad A16 Silver Wi-Fi eSim 256GB 5G</td><td>R12,246.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad A16  Silver Wi-Fi eSim 512GB 5G</td><td>R16,340.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air M3 Grey Wi-Fi eSim 128GB 5G</td><td>R15,592.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air M3 Grey Wi-Fi eSim 256GB 5G</td><td>R16,639.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air M3 Grey Wi-Fi eSim 128GB 5G</td><td>R18,950.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air M3 Grey Wi-Fi eSim 256GB 5G</td><td>R20,560.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air M3 Grey Wi-Fi eSim 512GB 5G</td><td>R24,493.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air Grey M4 WiFi +Cell 128GB</td><td>R14,856.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air Blue M4 Wi-Fi + Cellular 128GB</td><td>R14,856.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air Starlight M4 Wi-Fi + Cellular 128GB</td><td>R14,856.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air Purple M4 Wi-Fi + Cellular 128GB</td><td>R14,856.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Air Grey M4 Wi-Fi + Cellular 256GB</td><td>R16,846.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Grey M4 Wi-Fi + Cellular 128GB</td><td>R18,835.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Blue M4 Wi-Fi + Cellular 128GB</td><td>R18,835.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Starlight M4 Wi-Fi + Cellular 128GB</td><td>R18,835.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Purple M4 Wi-Fi + Cellular 128GB</td><td>R18,835.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Grey M4 Wi-Fi + Cellular 256GB</td><td>R20,813.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Blue M4 Wi-Fi + Cellular 256GB</td><td>R20,813.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Air Starlight M4 Wi-Fi + Cellular 256GB</td><td>R20,813.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Pro M4 Black 25GGB  WiFi eSim with Standard glass</td><td>R24,942.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13 inch iPad Pro M4 Black 256GB WiFi eSim with Standard glass</td><td>R31,485.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13 inch iPad Pro M4 Silver 256GB WiFi eSim with Standard glass</td><td>R31,485.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13 inch iPad Pro M4 Black 512GB WiFi Esim with Standard glass</td><td>R35,338.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13 inch iPad Pro M4 Silver 512GB WiFi Esim with Standard glass</td><td>R35,338.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Pro M5 Black WiFi eSim 256GB-STD Glass</td><td>R23,516.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Pro M5 Silver WiFi eSim 256GB-STD Glass</td><td>R23,516.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>11-inch iPad Pro M5 Black WiFi eSim 512GB-STD Glass</td><td>R27,437.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Pro M5 Black WiFi eSim 256GB-STD Glass</td><td>R29,404.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Pro M5 Silver WiFi eSim 256GB-STD Glass</td><td>R29,404.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Pro M5 Black WiFi eSim 512GB-STD Glass</td><td>R34,740.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Pro M5 Silver WiFi eSim 512GB-STD Glass</td><td>R34,740.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="APPLE"><td>APPLE</td><td>13-inch iPad Pro M5 Silver WiFi eSim 1TB-Nano-Texture glass</td><td>R44,963.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone XR White 3/64GB (Pre-Owned) CS</td><td>R5,587.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone XR White 3/128GB (Pre-Owned) (CS)</td><td>R6,208.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 11 Black 4/64GB 4G Preowned (CS)</td><td>R5,380.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 11 Purple 4/128GB 4G Preowned (CS)</td><td>R8,014.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 11 Red 4/128GB 4G Preowned (CS)</td><td>R8,014.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 11 Pro Gold4/64GB (Pre-Owned) CS</td><td>R8,692.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 11 Pro Green 4/64GB (Pre-Owned) CS</td><td>R8,692.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 12 White 4/128GB 5G PreOwned</td><td>R8,750.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 13 &quot; Midnight 4/128GB 5G (Pre-Owned) CS</td><td>R7,634.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 13 Blue 4/128GB 5G (Pre-Owned) CS</td><td>R7,634.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 13 Green 4/128GB 5G (Pre-Owned) CS</td><td>R7,634.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 13 Red 4/128GB 5G (PreOwned) CS</td><td>R7,634.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 13  Pink 4/128GB 5G (Pre-Owned) CS</td><td>R7,634.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 13 Starlight 4/128GB 5G (Pre-Owned) CS</td><td>R7,634.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 14 Starlight 6/128GB 5G Pre-owned</td><td>R8,324.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 14 Blue 6/128GB 5G Pre-owned</td><td>R8,324.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 14 Red 6/128GB 5G Pre-owned</td><td>R8,324.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 14 Purple 6/128GB 5G Pre-owned</td><td>R8,324.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>Apple iPhone 14 Midnight 6/128GB 5G Pre-owned</td><td>R8,324.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>iPhone SE 2022 Midnight 4/64GB 5G Preowned</td><td>R3,598.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>iPhone SE 2022 Red 4/64GB 5G Preowned</td><td>R3,598.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="APPLE CELLSELL"><td>APPLE CELLSELL</td><td>iPhone SE 2022 Starlight 4/64GB 5G Preowned</td><td>R3,598.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="BLINDSHELL"><td>BLINDSHELL</td><td>BlindShell Classic 2 Black 2/16GB 4G</td><td>R8,968.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U207 Black 4G 8GB NL (With WhatsApp)</td><td>R240.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U608 Black 1/16GB 4G NL</td><td>R424.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U607 Black 8GB 4G  NL</td><td>R412.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U607 Blue 8GB 4G NL</td><td>R412.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U43 Black 32GB 4G NL</td><td>R562.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U53 Black 32GB 4G NL</td><td>R631.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense Y81 Pro Black 32GB 4G NL</td><td>R562.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense Y82 Pro Black /264GB 4G NL</td><td>R700.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense Y83 Black 2/32GB 4G NL</td><td>R723.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense Y82 Pro Max Blue 2/64GB 4G NL</td><td>R895.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense Y83 Pro Black 2/32GB 4G + Earpods</td><td>R803.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense U40 Navy Blue 16GB NL (ANDROID GO)</td><td>R999.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense E34 Black 64GB 4G</td><td>R1,091.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense E35 Blue 2/64GB 4G</td><td>R1,022.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense E71 Black 4/64GB 4G</td><td>R1,252.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense E72 Blue 8/128GB 4G</td><td>R1,309.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense Infinity H72 Blue 4/128GB 4G</td><td>R1,493.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HISENSE"><td>HISENSE</td><td>Hisense H72 Pro Blue 4/256GB 4G</td><td>R1,781.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HMD"><td>HMD</td><td>HMD Arc Black 2/64GB 4G</td><td>R803.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor x5c Black 4/64GB 4G</td><td>R1,631.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor x5c Blue 4/64GB 4G</td><td>R1,631.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor x5c Plus Black 4/128GB 4G</td><td>R2,068.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor x5c Plus Green 4/128GB 4G</td><td>R2,068.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6c Green 6/128GB 4G</td><td>R2,678.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6c Black 6/128GB 4G</td><td>R2,678.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6d Ocean Cyan 4/256GB 5G</td><td>R4,357.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6d Black 4/256GB 5G</td><td>R4,357.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X7d Black 6/128GB 5G</td><td>R3,713.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X7d Gold 6/128GB 5G</td><td>R3,713.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X7d Black 8/256GB 5G</td><td>R5,196.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X7d Gold 8/256GB 5G</td><td>R5,196.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X9d Midnight Black 12/256GB 5G</td><td>R10,521.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X9d Sunrise Gold 12/256GB 5G</td><td>R10,521.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 400 Lite Black 8/256GB 5G</td><td>R6,335.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 400 Lite Green 8/256GB 5G</td><td>R6,335.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 600 Lite Black 8/256GB 5G</td><td>R8,635.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 600 Lite Green 8/256GB 5G</td><td>R8,635.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 400 Gold 12/512GB 5G</td><td>R10,820.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 400 Silver 12/512GB 5G</td><td>R10,820.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 400 Pro Grey 12/512GB 5G</td><td>R15,052.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 400 Pro Black 12/512GB 5G</td><td>R15,052.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 600 Black 12/256GB 5G</td><td>R13,131.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 600 Orange 12/256GB 5G</td><td>R13,131.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 600 Pro Orange 12/512GB 5G</td><td>R17,260.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 600 Pro Gold 12/512GB 5G</td><td>R17,260.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X5b Black 4/64GB 4G</td><td>R1,470.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X5b Blue 4/64GB 4G</td><td>R1,470.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X5b Plus Black 4/128GB 4G</td><td>R1,942.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X5b Plus Purple 4/128GB 4G</td><td>R1,942.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6a Silver 4/128GB 4G</td><td>R3,195.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6b Black 128GB 4G</td><td>R2,919.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X6b Green 128GB 4G</td><td>R2,919.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X7b Silver 256GB 4G</td><td>R4,782.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor X7c Green 256GB</td><td>R4,334.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 200 Lite Black 256GB 5G</td><td>R6,956.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 200 Lite Blue 256GB 5G</td><td>R6,956.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 200 White 512GB 5G</td><td>R11,786.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor 200 Black 512GB 5G</td><td>R11,786.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Magic7 Pro Grey 5G 12/512GB</td><td>R22,676.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Magic 8 Pro Sunrise Gold 12/512GB 5G</td><td>R24,746.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Magic V5 Dawn Gold 16/512GB 5G</td><td>R29,806.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Pad X7 Grey 4/128GB Wifi</td><td>R1,585.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Pad X8a Grey 4/128GB 4G+ Pen</td><td>R3,402.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Pad X8b Grey 4/128GB 4G+ Pen + Cover</td><td>R4,023.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Pad X9 Space Grey 4/128GB 4G + KeyBoard</td><td>R4,736.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Pad X9a Space Grey 6/128GB 4G + KeyBoard</td><td>R6,243.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HONOR"><td>HONOR</td><td>Honor Pad 10 Grey 8/256GB 5G + Keyboard + Pen</td><td>R8,244.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y62 Black 4/128GB 4G</td><td>R3,299.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y62 Blue 4/128GB 4G</td><td>R3,299.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y63 Black 4/128GB 4G</td><td>R3,414.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y63 Silver 4/128GB 4G</td><td>R3,414.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y63 Black 6/128GB 4G</td><td>R3,414.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y63 Silver 6/128GB 4G</td><td>R3,414.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y73s Black 8/128GB 4G</td><td>R3,943.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y73s Blue 8/128GB 4G</td><td>R3,943.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y73 Black 8/256GB 4G</td><td>R5,426.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y73 Blue 8/256GB 4G</td><td>R5,426.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y74S Black 8/128GB 4G</td><td>R4,437.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y74S Blue 8/128GB 4G</td><td>R4,437.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y74 Black 8/256GB 4G</td><td>R5,426.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y74 Blue 8/256GB 4G</td><td>R5,426.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 13i White 256GB 4G</td><td>R7,669.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 13i Blue 256GB 4G</td><td>R7,669.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 14i Black 8/256GB</td><td>R5,438.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 14i Blue 8/256GB</td><td>R5,438.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 14 Black 12/256GB</td><td>R11,590.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 14 Blue 12/256GB</td><td>R11,590.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 14 Pro Black 12/512GB</td><td>R13,568.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 14 Pro Blue 12/512GB</td><td>R13,568.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 15 Max Blush Gold 8/256GB</td><td>R9,865.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 15 Max Golden Black 8/256GB</td><td>R9,865.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 15 Max Lake Cyan 8/256GB</td><td>R9,865.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 70 Black 256GB</td><td>R17,743.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 70 White 256GB</td><td>R17,743.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 70  Pro Black 512GB</td><td>R21,457.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 70 Pro White 512GB</td><td>R21,457.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 80 Black 12/256GB</td><td>R18,007.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 80 Gold 12/256GB</td><td>R18,007.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 80 Pro Black 512GB</td><td>R22,941.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Pura 80 Pro Burgundy Red 512GB</td><td>R22,941.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate 80 Pro Gold 16/512GB</td><td>R22,435.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate 80 Pro Black 16/512GB</td><td>R22,435.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate X6 Black 12/512GB</td><td>R36,959.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate X7 Red 16/512GB</td><td>R40,030.35</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate XT Red 16GB/1TB</td><td>R68,354.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate XT Black 16GB/1TB</td><td>R68,354.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y71 Gold 128GB 4G</td><td>R4,265.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y72s Blue 128GB 4G</td><td>R3,943.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y72s Black 128GB 4G</td><td>R3,943.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 9 Starry Blue 128GB 4G SS + Freelace</td><td>R10,774.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 12se Black 256GB 4G</td><td>R8,692.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 11 Green 256GB 4G</td><td>R11,165.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 13 Green 256GB + FreeBuds SE 2</td><td>R6,530.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 13 Black 256GB + FreeBuds SE 2</td><td>R6,530.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 13 Pro Green 512GB + Free Arc Buds</td><td>R12,660.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova 13 Pro Black 512GB+ Free Arc Buds</td><td>R12,660.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei P60 Pro Black  256GB</td><td>R20,376.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei nova Y9a Sakura Pink 6/128GB 4G NL</td><td>R5,288.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Mate 11.5 NEW</td><td>R9,566.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Matepad SE 11 Grey 4/128GB 4G with Pen</td><td>R4,690.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>Huawei Matepad SE 11 Grey 8/128GB 4G with Pen Next</td><td>R7,151.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="HUAWEI"><td>HUAWEI</td><td>HUAWEI MatePad 11.5-inch PaperMatte 4/256GB with keyboard & Bluetooth mouse</td><td>R8,635.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="INSTACOM"><td>INSTACOM</td><td>LM500 MOBILE RADIO</td><td>R7,209.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel it2163D Blue 32MB 2G NL</td><td>R136.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel it9300 Black 64MB 4G NL Cloud Phone</td><td>R136.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Vodacom V54 Black 4/32GB 4G NL</td><td>R493.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel A90 Black 3/64GB 4G NL</td><td>R907.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel A90 Titanium  3/64GB 4G NL</td><td>R907.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel A65 Green 2/32GB 4G</td><td>R895.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel A90s Black 3/128GB 4G</td><td>R1,160.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel A90s Titanium  3/128GB 4G</td><td>R1,160.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ITEL"><td>ITEL</td><td>Itel A200s Black 3/128GB 4G NL</td><td>R1,436.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel S2 Black 64MB 2G</td><td>R113.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel S2 Plus Black 64MB 2G</td><td>R113.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel S4 Cloud Black 128MB 4G</td><td>R127.65</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel S5 Black 1/8GB NL (with WhatsApp)</td><td>R263.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel F50 Blue 16GB 4G NL</td><td>R458.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel F52 Grey 2/32GB 4G NL</td><td>R596.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel F52 Grey 3/32GB 4G NL</td><td>R596.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel P11 Plus Grey 32GB 4G NL</td><td>R516.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel P11 Plus Grey 2/64GB 4G NL</td><td>R677.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel P12 Green 32GB 4G NL</td><td>R573.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel P12 Plus Grey 3/32GB 4G NL</td><td>R665.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="MOBICEL"><td>MOBICEL</td><td>Mobicel Mercury Black 32GB 4G</td><td>R1,217.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Edge 70 Green 12/512GB 5G</td><td>R8,968.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Edge 70 Swarovski Cloud Dancer 12/512GB 5G + Moto Buds Swarovski</td><td>R14,408.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Edge 70 Fusion Silhouette 12/256GB (FIFA Edition) + Moto Buds</td><td>R9,382.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Edge 70 Fusion Silhouette 12/256GB (Power Edition) + Moto Buds</td><td>R8,531.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Edge 70 Fusion Blue Surf 12/256GB (Power Edition) + Moto Buds</td><td>R8,531.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola G77 Black Olive 8/256GB 5G</td><td>R5,978.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola G77 Shaded Spruce 8/256GB 5G</td><td>R5,978.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Razr 60 Flip Gibraltar Sea 8/256GB + Moto Buds</td><td>R13,545.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Razr 60 Flip Lightest Sky 8/256GB + Moto Buds</td><td>R13,545.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="MOTOROLA"><td>MOTOROLA</td><td>Motorola Razr 60 Swarovski Ice Melt 8/256GB</td><td>R19,134.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="NOKIA"><td>NOKIA</td><td>Nokia 105 Black 4MB 2G</td><td>R171.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="NOKIA"><td>NOKIA</td><td>Nokia 105 Black 4MB 2G</td><td>R171.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="NOKIA"><td>NOKIA</td><td>Nokia 105 AE Blue 4MB 2G</td><td>R171.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="NOTHING"><td>NOTHING</td><td>Nothing Phone 2a Black 128GB 5G</td><td>R8,566.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6x Plum Purple 4/64GB 4G</td><td>R1,850.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>OPPO A40 Black 4/128GB 4G</td><td>R2,632.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>OPPO A40 Purple 4/128GB 4G</td><td>R2,632.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>OPPO A40M White 4/256GB 4G</td><td>R5,058.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 Purple 4/128GB 4G</td><td>R2,586.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 White 4/128GB 4G</td><td>R2,586.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 White 8/256GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 Purple 8/256GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 Pro Brown 8/256GB 4G</td><td>R6,829.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 Pro Green 8/256GB 4G</td><td>R6,829.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 Pro Brown 8/256GB 5G</td><td>R9,486.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A5 Pro Green 8/256GB 5G</td><td>R9,486.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6k Purple 4/256GB 4G</td><td>R5,978.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6k Blue 4/256GB 4G</td><td>R5,978.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6 Blue 8/256GB 4G</td><td>R8,048.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6 Gold 8/256GB 4G</td><td>R8,048.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6 Pro Blue 8/256GB 5G+ Watch+Buds</td><td>R10,693.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo A6 Pro Rose Red 8/256GB 5G+ Watch+ Buds</td><td>R10,693.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>OPPO Reno8 Gold 8/256GB 5G + OPPO Wireless Earpods</td><td>R14,983.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>OPPO Reno10 Pro+ Purple 12/256GB 5G</td><td>R21,250.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno 13F Purple 12/512GB 5G</td><td>R12,648.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno 13F Grey 12/512GB 5G</td><td>R12,648.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno 13 White 12/512GB 5G</td><td>R17,708.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno 13 Blue 12/512GB 5G</td><td>R17,708.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno15F Dark Blue 12/512GB 5G</td><td>R13,534.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno15F Light Blue 12/512GB 5G</td><td>R13,534.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno15 Pro Coffee 12/512GB 5G</td><td>R20,491.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Reno15 Pro Light Blue 12/512GB 5G</td><td>R20,491.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Find X 9 Pro Charcoal 16/512GB 5G</td><td>R28,955.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Pad Neo Grey 6/128GB 4G</td><td>R6,082.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="OPPO"><td>OPPO</td><td>Oppo Pad SE Blue 4/128GB  4G</td><td>R6,703.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme Note 50 Black 4/128GB 4G</td><td>R1,827.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme Note 60 Black 4/128GB 4G</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme Note 60 Blue 4/128GB 4G</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme Note 60x Black 3/64GB 4G</td><td>R1,482.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme Note 60x Green 3/64GB 4G</td><td>R1,482.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C53 Gold 8/256GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C61 Green 8/256GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C61 Gold 8/256GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C71 Forest Owl 6/128GB 4G</td><td>R2,586.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C71 White 6/128GB 4G</td><td>R2,586.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C67 Black 6/256GB 4G</td><td>R6,887.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C75 Black 8/256GB 4G</td><td>R5,599.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C75 Gold 8/256GB 4G</td><td>R5,599.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme C75x Blue 8/256GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="REALME"><td>REALME</td><td>Realme GT7 Dream Edition Green 16/512GB 5G</td><td>R18,433.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A05 Black 4/64GB 4G</td><td>R1,539.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A05s Black 4/128GB 4G</td><td>R2,459.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A05s Violet 4/128GB 4G</td><td>R2,459.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A06 Black 4/64GB 4G</td><td>R1,781.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A06 Blue 4/64GB 4G</td><td>R1,781.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A07 Black 4/128GB 4G</td><td>R2,068.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A07 Green 4/128GB 4G</td><td>R2,068.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A15 Black 4/128GB 4G</td><td>R3,379.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A15 Blue 4/128GB 4G</td><td>R3,379.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A16 Black 4/128GB 4G</td><td>R2,689.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A16 Green 4/128GB 4G</td><td>R2,689.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A17 Black 4/128GB 4G</td><td>R3,379.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A17 Blue 4/128GB 4G</td><td>R3,379.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A17 Black 4/128GB 5G</td><td>R3,805.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A25 Blue128GB 5G</td><td>R5,070.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A26 Black 128GB 5G</td><td>R5,070.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A26 Green 128GB 5G</td><td>R5,070.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A27 Black 6/128GB 5G</td><td>R5,909.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A27 Green 6/128GB 5G</td><td>R5,909.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A34 Black 128GB 5G</td><td>R6,335.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A34 Green 128GB 5G</td><td>R6,335.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A36 Black 128GB 5G</td><td>R6,438.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A36 Green 128GB 5G</td><td>R6,438.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A36 Black 256GB 5G</td><td>R7,600.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A37 Grey 6/256GB 5G</td><td>R7,600.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A37 Voilet 6/256GB 5G</td><td>R7,600.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A37 Green 6/256GB 5G</td><td>R7,600.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A54 Black 256GB 5G</td><td>R8,704.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A56 Green 256GB 5G</td><td>R9,290.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A57 Grey 8/256GB 5G</td><td>R10,141.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy A57 Blue 8/256GB 5G</td><td>R10,141.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25FE Blue 8/128GB 5G</td><td>R11,832.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25FE Black  8/128GB 5G</td><td>R11,832.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25FE White 8/256GB 5G</td><td>R13,856.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25FE Black 8/256GB 5G</td><td>R13,856.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25FE Light Blue 8/256GB 5G</td><td>R13,856.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25FE Blue 8/256GB 5G</td><td>R13,856.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S24 Black 256GB 5G</td><td>R14,879.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S24 Grey 256GB 5G</td><td>R14,879.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S24+ Violet 256GB 5G</td><td>R21,733.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Edge Black 256GB 5G+ PowerBank</td><td>R22,998.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Navy 256GB 5G</td><td>R17,720.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Icy Blue 256GB 5G</td><td>R17,720.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Ultra White Silver 256GB 5G</td><td>R22,136.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Ultra Titanium Grey 256GB 5G</td><td>R22,136.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Ultra Titanium Black 256GB 5G</td><td>R22,136.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Ultra Silver Blue 256GB 5G</td><td>R22,136.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S25 Ultra Titanium Black 1TB 5G</td><td>R31,451.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Light Blue 256GB</td><td>R17,846.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Black 256GB</td><td>R17,846.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Violet 256GB</td><td>R17,846.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 White 256GB</td><td>R17,846.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Light Blue 512GB</td><td>R21,250.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Black 512GB</td><td>R21,250.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Violet 512GB</td><td>R21,250.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 White 512GB</td><td>R21,250.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ Light Blue 256GB</td><td>R22,101.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ Black 256GB</td><td>R22,101.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ Violet 256GB</td><td>R22,101.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ White 256GB</td><td>R22,101.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ Light Blue 512GB</td><td>R25,505.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ Black 512GB</td><td>R25,505.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ Violet 512GB</td><td>R25,505.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26+ White 512GB</td><td>R25,505.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Light Blue 256GB</td><td>R26,356.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Black 256GB</td><td>R26,356.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Violet 256GB</td><td>R26,356.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra White 256GB</td><td>R26,356.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Black 512GB</td><td>R29,760.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Violet 512GB</td><td>R29,760.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra White 512GB</td><td>R29,760.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Sky Blue 512GB</td><td>R29,760.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Black 1TB</td><td>R35,039.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy S26 Ultra Violet 1TB</td><td>R35,039.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Z Fold3 Silver 256GB 5G</td><td>R31,612.35</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Z Flip5 Cream 512GB 5G</td><td>R28,104.85</td><td class="comp">R467</td><td class="acc">R195</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 6 Pink 256GB 5G</td><td>R37,063.35</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 FE Black 12/128GB 5G</td><td>R17,007.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 FE Black 12/256GB 5G</td><td>R19,376.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 FE White 12/256GB 5G</td><td>R19,376.35</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 Black 12/256GB 5G</td><td>R22,952.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 Blue 12/256GB 5G</td><td>R22,952.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 Red 12/256GB 5G</td><td>R22,952.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 Black 12/512GB 5G</td><td>R25,333.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 Blue 12/512GB 5G</td><td>R25,333.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Flip 7 Red 12/512GB 5G</td><td>R22,952.85</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Silver 12/256GB 5G</td><td>R39,673.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Black 12/256GB 5G</td><td>R39,673.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Blue 12/256GB 5G</td><td>R39,673.85</td><td class="comp">R611</td><td class="acc">R235</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Silver 12/512GB 5G</td><td>R42,042.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Black 12/512GB 5G</td><td>R42,042.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Blue 12/512GB 5G</td><td>R42,042.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Black 16/1TB 5G</td><td>R46,412.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Fold 7 Blue 16/1TB 5G</td><td>R46,412.85</td><td class="comp">R667</td><td class="acc">R255</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Tab A9+ Grey 4/64GB 5G</td><td>R4,322.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Tab A11 Grey 4/64GB 4G</td><td>R3,287.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Tab A11+ Grey 6/128GB 5G</td><td>R5,196.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Tab S10 Lite Grey 128GB 5G</td><td>R7,795.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung TAB S9 FE+ Grey 128GB 5G</td><td>R14,132.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Tab S10 FE Grey 8/128GB 5G</td><td>R10,728.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Galaxy Tab S10FE+ Grey 8/128GB 5G</td><td>R14,132.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Tab S10+ Grey 256GB 5G</td><td>R22,515.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Tab S11 Grey 12/256GB 5G</td><td>R19,916.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Samsung Tab S11 Ultra Grey 12/256GB 5G</td><td>R25,977.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Sonim XP10 Black 128GB 5G</td><td>R19,249.85</td><td class="comp">R336</td><td class="acc">R121</td></tr>
+<tr data-brand="SAMSUNG"><td>SAMSUNG</td><td>Sonim XP400 Black 6/128GB 5G</td><td>R9,175.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="SPECTRA"><td>SPECTRA</td><td>Spectra J2 Grey 4/64GB 4G NL+ Earpods & Cover</td><td>R941.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="SPECTRA"><td>SPECTRA</td><td>Spectra J2 Pro Blue 4/128GB 4G + Earpods & Cover</td><td>R1,298.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Alcatel A11 SE Dark Grey 2/32GB 4G</td><td>R424.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>TCL 60R Grey 4/128GB 5G</td><td>R1,551.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark Go 2 Black 4/64GB 4G</td><td>R1,344.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark Go 2 Titanium 4/64GB 4G</td><td>R1,344.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 10C Black 4/128GB 4G</td><td>R3,034.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 20C Black 4/128GB 4G</td><td>R3,460.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 20C White 4/128GB 4G</td><td>R3,460.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 20P Green 8/256GB 4G</td><td>R4,334.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 20P Gold 8/256GB 4G</td><td>R4,334.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 10 Black 4/64GB 5G</td><td>R4,759.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 10 Pro Black 8/256GB 4G</td><td>R5,921.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 20 Pro Green 8/256GB 5G</td><td>R9,474.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40C Black 4/128GB 4G</td><td>R1,516.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40C Grey 4/128GB 4G</td><td>R1,516.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40 Black 6/128GB 4G</td><td>R2,448.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40 Titanium Grey 6/128GB 4G</td><td>R2,448.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40s Black 8/256GB 4G</td><td>R4,184.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40s Grey 8/256GB 4G</td><td>R4,184.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40 Pro Black 8/256GB 4G</td><td>R5,875.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Spark 40 Pro Titanium 8/256GB 4G</td><td>R5,875.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Pova 7 Black 8/256GB 5G</td><td>R9,221.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="TCL"><td>TCL</td><td>Tecno Pova 7 Pro Black 8/256GB 5G</td><td>R10,900.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y03 Black 4/64GB 4G</td><td>R1,861.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y04e Green 4/64GB 4G</td><td>R1,700.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y04 Gold 4/256GB 4G</td><td>R2,701.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y19s Black 4/128GB 4G</td><td>R3,437.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y19s Silver 4/128GB 4G</td><td>R3,437.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y19s Pro Black 6/256GB 4G</td><td>R5,173.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y19s Pro Silver 6/256GB 4G</td><td>R5,173.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y11e Black 4/128GB 4G</td><td>R5,058.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y11e Platinum 4/128GB 4G</td><td>R5,058.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y11d Black 4/256GB 4G</td><td>R6,898.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y11d Platinum 4/256GB 4G</td><td>R6,898.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y28 Green 8/256GB 4G</td><td>R5,863.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y28 Orange 8/256GB 4G</td><td>R5,863.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y29 Brown 8/256GB 4G</td><td>R6,783.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y29 White 8/256GB 4G</td><td>R6,783.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y31 Green 8/256GB 5G</td><td>R7,956.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y31 Purple 8/256GB 5G</td><td>R7,956.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y36 Glitter Aqua 8/256GB 4G</td><td>R6,668.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo Y100  Black 8/256GB 4G</td><td>R7,956.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>VIVO V27 Blue 8/256GB 5G</td><td>R14,431.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V30 Aqua12/512GB 5G</td><td>R16,788.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V30 Black 12/512GB 5G</td><td>R16,788.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V50 Lite Gold 256GB 5G</td><td>R10,981.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V50 Lite Black 256GB 5G</td><td>R10,981.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V60 Lite Black 8/256GB 5G</td><td>R11,038.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V60 Lite Blue 8/256GB 5G</td><td>R11,038.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V50 Blue 12/512GB 5G</td><td>R17,651.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V50 Black12/ 512GB 5G</td><td>R17,651.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V70 FE Blue 8/512GB 5G</td><td>R12,936.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V70 FE Silver  8/512GB 5G</td><td>R12,936.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V70 Black 12/512GB 5G</td><td>R17,524.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo V70 Brown 12/512GB 5G</td><td>R17,524.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo X200 Pro Titanium 16/512GB 5G</td><td>R32,302.35</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo X300 Black 16/512GB 5G</td><td>R26,391.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo X300 Blue 16/ 512GB 5G</td><td>R26,391.35</td><td class="comp">R397</td><td class="acc">R121</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo X300 Pro Black 16/512GB 5G</td><td>R33,923.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vivo X300 Pro Dune Brown 16/ 512GB 5G</td><td>R33,923.85</td><td class="comp">R543</td><td class="acc">R210</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Kicka 5 Plus Black 32GB 4G NL</td><td>R343.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Kicka 6 Grey 32GB 4G NL</td><td>R389.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom A06s Black 2/64GB 4G NL</td><td>R642.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Smart Tab 8 Black 3/32GB 4G</td><td>R1,022.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Smart Tab 10 Black 4/64GB 4G</td><td>R1,436.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Kicka 6 Black 32GB 4G NL</td><td>R631.35</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Kicka 6 Plus Green 2/32GB 4G</td><td>R815.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom A06s Black 32GB 4G NL</td><td>R642.85</td><td class="comp">R20</td><td class="acc">R20</td></tr>
+<tr data-brand="VIVO"><td>VIVO</td><td>Vodacom Smart Tab 8 Black 2/32GB 4G</td><td>R1,022.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi Redmi A3x Black 4/64GB 4G</td><td>R1,275.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi Redmi A3x White 4/64GB 4G</td><td>R1,275.35</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi A5 Black 4/128GB 4G</td><td>R1,700.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi A5 Gold 4/128GB 4G</td><td>R1,700.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi A7 Black 3/64GB 4G</td><td>R1,700.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi A7 Blue 3/64GB 4G</td><td>R1,700.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi A7 Pro Black 4/128GB 4G</td><td>R2,574.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi A7 Pro Blue 4/128GB 4G</td><td>R2,574.85</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 14C Blue 4/128GB 4G</td><td>R2,045.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 14C Black 4/256GB 4G</td><td>R3,897.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 15C Blue 4/128GB 4G</td><td>R2,149.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 15C Black 4/128GB 4G</td><td>R2,149.35</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 15C Green 4/128GB 5G</td><td>R2,609.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi Redmi 12 Black 4/128GB 4G</td><td>R3,701.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi Redmi 13 Black 8/256GB 4G</td><td>R5,449.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi Redmi 13 Blue 8/256GB 4G</td><td>R5,449.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 15 Grey 8/256GB 4G</td><td>R3,069.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi 15 Black 8/256GB 4G</td><td>R3,069.35</td><td class="comp">R63</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 13 Black 8/256GB 4G</td><td>R6,737.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 14 Black 8/128GB 4G</td><td>R4,345.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 14 Black 8/256GB 5G + Buds 6 Active</td><td>R7,715.35</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 14 Pro Black 12/512GB 5G +Band 9 Active</td><td>R11,383.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 14 Pro+ Black 12/512GB 5G +Watch 5 Active</td><td>R14,546.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 14 Pro+ Blue 12/512GB 5G Watch 5 Active</td><td>R14,546.35</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 15 Black 8/256GB 4G + Powerbank</td><td>R5,817.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 15 Blue 8/256GB 4G + Powerbank</td><td>R5,817.85</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 15 Pro Black 8/256GB 4G + Powerbank</td><td>R7,082.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 15 Pro Blue 8/256GB 4G + Powerbank</td><td>R7,082.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 15 Pro+ Black 8/256GB 5G + Powerbank</td><td>R10,141.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Note 15 Pro+ Blue 8/256GB 5G + Powerbank</td><td>R10,141.85</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi 14T Black 12/512GB 5G</td><td>R17,248.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi 14T Blue 12/512GB 5G</td><td>R17,248.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi 15T Black 12/512GB 5G</td><td>R12,706.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi 15T Grey 12/512GB 5G</td><td>R12,706.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi 17T Black 12/512GB 5G+ Smart Purifier 2</td><td>R17,386.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Xiaomi 17T White 12/512GB 5G+ Smart Purifier 2</td><td>R17,386.85</td><td class="comp">R255</td><td class="acc">R80</td></tr>
+<tr data-brand="XIAOMI"><td>XIAOMI</td><td>Redmi Pad 2 Grey 4/128GB 4G</td><td>R4,311.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Zte Blade A36 Black 2/64GB 4G</td><td>R872.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Zte Blade A36 Titanium Gold 2/64GB 4G</td><td>R872.85</td><td class="comp">R31</td><td class="acc">R20</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia Music Pop Art 128GB 4G</td><td>R1,700.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia V70 Max Grey 128GB 4G</td><td>R1,930.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia A76 Black 4/128GB  5G</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">R20</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia Focus Black 256GB 5G</td><td>R3,448.85</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia Focus 2 Blue 8/256GB 5G</td><td>R6,036.35</td><td class="comp">R115</td><td class="acc">R60</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia Neo 2 Grey 256GB 5G</td><td>R3,874.35</td><td class="comp">R85</td><td class="acc">R30</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia Neo 3 Black 8/256GB 5G</td><td>R8,623.85</td><td class="comp">R149</td><td class="acc">R60</td></tr>
+<tr data-brand="ZTE"><td>ZTE</td><td>Nubia Neo 3 GT Grey 12/256 5G</td><td>R11,211.35</td><td class="comp">R200</td><td class="acc">R80</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei E5576-321 White Mi-Fi CAT4 NL SM</td><td>R263.35</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei E5576-321 White Mi-Fi CAT4 F&D NL</td><td>R263.35</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei E5576-321 White Mi-Fi CAT4 SP + Data NL</td><td>R263.35</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei E5783-230a White CAT7 4G  MiFi Preowned</td><td>R458.85</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei E5783-230a White CAT7 MiFi</td><td>R895.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei R219h LTE White (CAT 4) MiFi</td><td>R746.35</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei H155-383 White 5G FWA</td><td>R2,068.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei H153-381 White 5G FWA Indoor</td><td>R1,953.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei AR651 Black  CAT6 Router EBU</td><td>R11,498.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei B530-936 White CPE CAT7  4G (Prepaid FWA)</td><td>R780.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Huawei B535-932 a Cat 7 White 4G Preowned</td><td>R976.35</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>NOKIA WIFI GATEWAY 3 White FTTH</td><td>R1,654.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>TP Link RE450 AC1750 White  Wi-Fi Extender</td><td>R1,298.35</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>TP-Link Deco X55 Wi-Fi 6 AX3000 White & Grey</td><td>R1,033.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Yealink SIP-T46U Plus PSU Black</td><td>R3,161.35</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Yealink W73H DECT Handset Space Grey (VOIP)</td><td>R1,309.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Yealink W73P IP DECT Phone and Base Station Space Grey (VOIP)</td><td>R2,034.35</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Yealink PSU for Monochrome Black (VOIP Charger)</td><td>R136.85</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Yealink T33G Gigabit Colour Screen Desktop IP Phone (VOIP)</td><td>R1,194.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>H3C MSR1104S-W-CAT6 Black  4G FWA Vodacom Business only</td><td>R7,519.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Alcatel HH72v White CAT7 4G FWA Router</td><td>R1,401.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Alcatel HH72v White CAT7 4G FWA Preowned</td><td>R642.85</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>VODAPAY KWIKA K300 Red</td><td>R458.85</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodafone H500-s Black (FTTH)</td><td>R1,263.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodafone K5161z White CAT4 USB Modem (ZTE)</td><td>R458.85</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom S3 White Router FTTH</td><td>R1,148.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom C200 Max White FWA 5G DAP</td><td>R872.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom C200 Max White FWA 5G DDP</td><td>R872.85</td><td class="comp">R30</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom X25 MAX 5G White FWA</td><td>R3,034.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom X25 MAX 2 White 5G FWA</td><td>R2,068.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom X25 MAX2 White 5G FWA Vodacom Bussiness Only  (Indoor)</td><td>R2,298.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom S90 Ultra White CAT12 Ftth DAP 4G</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom S90 Ultra White CAT12 FWA DAP 4G VB</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom X25 MAX2 5G White FWA Vodacom Bussiness Only (Indoor) DDP</td><td>R2,298.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom S90 Ultra 4G White CAT12 Ftth DDP</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodacom S90 Ultra 4G White CAT12 FWA Vodacom Business Only DDP</td><td>R1,723.85</td><td class="comp">R42</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodafone K5161-Z  White Cat 4 Usb Modem+ LTE SP</td><td>R79.35</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>Vodafone K5161Z White Cat 4 Usb Modem F&D</td><td>R171.35</td><td class="comp">R20</td><td class="acc">—</td></tr>
+<tr data-brand="MODEMS"><td>MODEMS</td><td>ZTE MC889 White 5G FWA Outdoor VB</td><td>R3,782.35</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Acer Aspire Core Silver i3 SSD 8/512GGB</td><td>R8,428.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Acer Aspire Core Silver i5 512 SSD</td><td>R12,338.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Acer Aspire Lite 16 Core i5 Grey 8/512GB SSD</td><td>R10,383.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 MacBook Air M1 Space Grey 8/256GB</td><td>R12,867.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 MacBook Air M4 Midnight 16/256GB SSD</td><td>R21,147.35</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 MacBook Pro M4 Black  16/ 512GB SSD</td><td>R34,774.85</td><td class="comp">R380</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 MacBook Pro M4 Pro Black  24/512GB SSD</td><td>R43,227.35</td><td class="comp">R470</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 MacBook Pro M5 Black 16/512GB SSD</td><td>R32,417.35</td><td class="comp">R350</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 MacBook Pro M5 Silver 16/512GB SSD</td><td>R32,417.35</td><td class="comp">R350</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 MacBook Pro M5 Black 16/1TB SSD</td><td>R37,891.35</td><td class="comp">R420</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 MacBook Pro M5 Black 24/1TB SSD</td><td>R41,628.85</td><td class="comp">R420</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 Macbook Air M5 Silver 16/512GB SSD</td><td>R21,066.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 Macbook Air M5 Midnight 16/512GB SSD</td><td>R21,066.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 Macbook Air Silver M5 16/1TB SSD</td><td>R24,988.35</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>14 Macbook Pro M5 Space Black 16/1TB SSD</td><td>R32,555.35</td><td class="comp">R350</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 Macbook Neo A18 Pro Silver 8/256GB SSD</td><td>R11,487.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 Macbook Neo A18 Pro Indigo 8/256GB SSD</td><td>R11,487.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>13 Macbook Neo A18 Pro Silver 8/512GB SSD TOUCH ID</td><td>R13,407.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS X515 GREY CORE i5 SSD 4/256GB</td><td>R8,382.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Asus TUF Gaming A15 Ryzen 7 Grey 512GB</td><td>R20,238.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Honor Magicbook X 14 i3 Grey 8/512GB + Mouse + Bag + MS 365</td><td>R13,384.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Honor Magicbook X16 i5 Grey 8/512GB+ Bag</td><td>R15,155.85</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Honor Magicbook X16 i5 Grey 8/512GB + Mouse + Bag</td><td>R15,155.85</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 14 Silver i5 16/256GB</td><td>R17,708.85</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 250 Celeron Ash Silver 8/256GB</td><td>R7,347.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 250 G9 15.6 CELERON Silver 8/256GB SSD</td><td>R7,347.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP Pavilion 15 i7 Natural Silver 512GB</td><td>R24,516.85</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 15 i5 Natural Silver 8/512GB SSD</td><td>R12,775.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 15.6 Silver Ryzen 5 8/512GB SSD</td><td>R11,303.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 15.6  FHD Ryzen 5  Silver 16/512GB SSD</td><td>R13,936.85</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 15.6 FHD Ryzen 7 Silver 16/512GB SSD</td><td>R18,858.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 15.6 FHD Celeron Silver 8/256GB SSD</td><td>R6,197.35</td><td class="comp">R85</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 15 Ryzen 3 Silver 8/256GB  SSD</td><td>R12,855.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 255 G10 Ryzen 3 Silver 8/512GB SSD</td><td>R9,394.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP Victus Ryzen 5 Blue 6/512GB</td><td>R25,919.85</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP Victus Ryzen 7 Blue 6/512GB</td><td>R29,956.35</td><td class="comp">R350</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP ENVY x360 Ultra 5 Silver 16/512GB SSD</td><td>R26,230.35</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP ENVY x360 Ultra 7 Silver 16GB/1TB SSD</td><td>R29,553.85</td><td class="comp">R350</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP OmniBook 3 Silver Ryzen 5 8/256GB+ Bag+Mouse</td><td>R16,880.85</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP OmniBook 3 Silver Ryzen 7 8/256GB</td><td>R20,882.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP OmniBook X Flip 16 Ultra 5 Silver 16/512GB</td><td>R27,276.85</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP OmniBook 5 Flip x360 14&quot; Blue Core 5 16/512GB SSD</td><td>R24,194.85</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP OmniBook 5 Flip x360 14&quot; Blue Core 7 16/512GB</td><td>R27,495.35</td><td class="comp">R299</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>HP 14 Ultra 5 Silver 16/512GB</td><td>R18,697.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Huawei Matebook D14 2024 Silver i3 8/512GB</td><td>R12,855.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Huawei Matebook D16 Silver i5 16/512GB</td><td>R16,800.35</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Huawei Matebook D16 Silver i5 16/512GB  New</td><td>R16,800.35</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo M8 Grey 3/32GB 4G</td><td>R2,528.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo Tab One Grey 4/64GB 4G</td><td>R2,459.85</td><td class="comp">R52</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo Tab 10 Grey 4/64GB 4G</td><td>R3,218.85</td><td class="comp">R63</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo M11 Grey 128GB 4G</td><td>R4,955.35</td><td class="comp">R85</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo Ideapad Celeron Grey 4/256GB SSD</td><td>R6,358.35</td><td class="comp">R85</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo Ideapad Core  Grey i3 15.6&quot; 8/512GB SSD</td><td>R8,853.85</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo Ideapad Core Grey i5 15.6&quot; 8/512GB SSD</td><td>R11,383.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo Ideapad Core Grey i7 15.6&quot; 8/512GB SSD</td><td>R13,154.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo IdeaPad Grey Ryzen 3 8/256GB</td><td>R8,439.85</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo IdeaPad Grey Ryzen 5 16/512GB</td><td>R9,900.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo IdeaPad Grey Ryzen 7 16/512GB</td><td>R13,856.35</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Lenovo IdeaPad 5G Silver 8/512SSD BF</td><td>R12,073.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Legion Go S (Ryzen 2 | 16GB RAM | 512GB Storage | Windows)</td><td>R13,637.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Legion Go S (Ryzen 2 | 16GB RAM | 512GB Storage | Steam)</td><td>R11,705.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Mecer Move Light LTE -Grey 4/128GB</td><td>R8,853.85</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Proline 14 Silver Celeron N4020  8/256GB SSD</td><td>R4,069.85</td><td class="comp">R63</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Dell Pro 15 Essential Black Core(TM) 3 8/512GB</td><td>R11,763.35</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Dell Pro 15 Essential Black i5 1334U 16GB/512GB</td><td>R15,052.35</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Dell Pro 15 Essential Black i7 1355U 16/512GB</td><td>R16,409.35</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Asus Vivobook Go 15 Black i3 8/512GB</td><td>R7,738.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>Asus Vivobook Go 15 Silver Ryzen 5 8/512GB SSD</td><td>R9,681.85</td><td class="comp">R149</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS TUF Gaming A15 Black Ryzen 7 8/512GB SSD</td><td>R21,963.85</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS Vivobook Go 15 Black Celeron 8/256GB</td><td>R5,806.35</td><td class="comp">R85</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS Vivobook S14 Silver U5 16/512GB</td><td>R16,455.35</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS Vivobook Go 15 Black AMD Ryzen 3 8/256GB</td><td>R7,853.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS Vivobook Go 15 Black AMD Ryzen 5 8/256GB</td><td>R7,738.35</td><td class="comp">R105</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS TUF Gaming A16 Grey AMD Ryzen 7 16/512GB</td><td>R18,387.35</td><td class="comp">R245</td><td class="acc">—</td></tr>
+<tr data-brand="TABLETS & LAPTOPS"><td>TABLETS & LAPTOPS</td><td>ASUS TUF Gaming A15 Silver AMD Ryzen 7 8/512GB</td><td>R15,523.85</td><td class="comp">R190</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Ultra 3 GPS Plus Cellular 49mm Natural Titanium Case with Anchor Blue Ocean Band</td><td>R14,902.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Ultra 3 GPS Plus Cellular 49mm Black Titanium Case with Black Ocean Band</td><td>R14,902.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 46mm Space Grey Aluminium Case with Black Sport Band   M/L</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 46mm Silver Aluminium Case with Purple Fog Sport Band   M/L</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 46mm Jet Black Aluminium Case with Black Sport Band   M/L</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 42mm Space Grey Aluminium Case with Black Sport Band   S/M</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 42mm Space Grey Aluminium Case with Black Sport Band   M/L</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 42mm Silver Aluminium Case with Purple Fog Sport Band   S/M</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 42mm Rose Gold Aluminium Case with Light Blush Sport Band   S/M</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 42mm Rose Gold Aluminium Case with Light Blush Sport Band   M/L</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS 42mm Jet Black Aluminium Case with Black Sport Band   S/M</td><td>R7,956.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS Plus Cellular 46mm Jet Black Aluminium Case with Black Sport Band   M/L</td><td>R10,233.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS Plus Cellular 46mm Space Grey Aluminium Case with Black Sport Band   M/L</td><td>R10,233.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS Plus Cellular 46mm Silver Aluminium Case with Purple Fog Sport Band   M/L</td><td>R10,233.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS Plus Cellular 42mm Space Grey Aluminium Case with Black Sport Band   S/M</td><td>R9,854.35</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch Series 11 GPS Plus Cellular 42mm Rose Gold Aluminium Case with Light Blush Sport Band   S/M</td><td>R9,854.35</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch SE 3 GPS 44mm Midnight Aluminium Case with Midnight Sport Band   M/L</td><td>R5,403.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch SE 3 GPS Plus Cellular 44mm Midnight Aluminium Case with Midnight Sport Band   M/L</td><td>R6,358.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch SE 3 GPS Plus Cellular 40mm Starlight Aluminium Case with Starlight Sport Band   S/M</td><td>R5,794.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch SE 3 GPS 40mm Starlight Aluminium Case with Starlight Sport Band   S/M</td><td>R4,817.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple Watch SE 3 GPS 40mm Midnight Aluminium Case with Midnight Sport Band   S/M</td><td>R4,817.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Apple 20W USBC Power</td><td>R378.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>AirPods Pro 3</td><td>R4,713.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>AirPods 4 with Active Noise Cancellation</td><td>R3,379.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>AirPods 4</td><td>R2,528.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>35W Dual USB-C Power Adapter</td><td>R1,045.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>30W USB-C Power Adapter</td><td>R987.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>ASUS ZenScreen MB169CK</td><td>R1,804.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Duo Fusion BT speaker</td><td>R1,321.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>GO PRO HERO SPECIALTY BUNDLE</td><td>R5,714.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR Watch 5 Ultra</td><td>R4,736.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Honor Watch 5</td><td>R2,586.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Honor Earbuds X6</td><td>R769.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Honor Choice Watch 2i</td><td>R734.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR CHOICE Earbuds X5 White</td><td>R412.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR CHOICE Earbuds Clip</td><td>R1,620.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Honor Band 9</td><td>R769.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR Choice CuBuds</td><td>R861.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR Choice Headphones</td><td>R596.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR Choice MouseBuds</td><td>R596.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR Choice MiLi LiTag</td><td>R182.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HONOR Choice Air Fryer</td><td>R1,252.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI Band 11 Black</td><td>R1,033.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI Band 11 Purple</td><td>R1,033.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI Band 11 Pro GPS Black</td><td>R1,378.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI Band 11 Pro GPS Blue</td><td>R1,378.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH Ultimate 2 Pro-Level Golf, Black Strap</td><td>R14,488.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT 6 GPS 46mm Leather Strap</td><td>R4,460.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT 6 GPS 46mm Green</td><td>R4,460.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT 6 GPS 46mm Black</td><td>R4,460.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT 6 GPS 41mm White</td><td>R4,460.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT 6 GPS 41mm Purple</td><td>R4,460.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT 6 GPS 41mm black</td><td>R4,460.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 4 Pro Golf Edition Green</td><td>R4,288.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 4 Pro Golf Edition Black</td><td>R4,288.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 4 GPS White</td><td>R2,689.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 4 GPS Black</td><td>R2,689.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH D2</td><td>R7,082.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH 5 e-SIM 46mm Grey-Purple</td><td>R8,543.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH 5 e-SIM 42mm Beige</td><td>R8,543.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI GT 6 Pro Golf Edition 46mm Titani</td><td>R8,474.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI GT 6 Pro Golf Edition 46mm Brown</td><td>R6,197.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI GT 6 Pro Golf Edition 46mm Black</td><td>R6,197.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT Runner 2 Orange</td><td>R6,634.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT Runner 2 Blue</td><td>R6,634.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH GT Runner 2 Black</td><td>R6,634.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI FreeClip 2 Black</td><td>R3,310.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI FreeBuds Pro 5 White</td><td>R2,839.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI FreeBuds SE 3 Black</td><td>R849.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI FreeBuds SE 3 Beige</td><td>R849.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI FreeArc Green</td><td>R1,700.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 5 GPS</td><td>R4,023.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 5 GPS</td><td>R4,023.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 5 Pro Golf</td><td>R5,369.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>HUAWEI WATCH FIT 5 Pro Golf</td><td>R5,369.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Switch Console - Red/Blue</td><td>R7,542.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Nintendo Switch 2 +Mario Kart World bundle</td><td>R11,786.35</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Nintendo Switch 2</td><td>R11,728.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>OPPO Watch X2 Mini</td><td>R4,943.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>OPPO Watch X2 Black</td><td>R5,886.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Oppo Encobuds3 Pro</td><td>R412.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Buds JA17 TWS</td><td>R263.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>PS5 PULSE EXPLORE WIRELESS EARBUDS</td><td>R4,391.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>PS5 HD Camera Glacier White</td><td>R1,137.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>PS5 Disc Slim</td><td>R13,706.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>PLAYSTATION PORTAL</td><td>R5,334.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>PLAYSTATION 5 Digital Plus Controller</td><td>R14,293.35</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Realme Watch S2 Black</td><td>R2,195.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>realme Buds T200 lite</td><td>R562.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Fit3 Silver</td><td>R987.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Fit3 Pink Gold</td><td>R987.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Fit3 Gray</td><td>R987.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Fit3 Grey with Galaxy Buds Core Black</td><td>R1,723.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung 45w Charger</td><td>R527.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch Ultra 47mm (LTE) - Titanium Silver</td><td>R8,071.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch Ultra 47mm (LTE) - Titanium Grey</td><td>R8,071.85</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch Ultra (2025) Silver</td><td>R8,474.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch Ultra (2025) Gray</td><td>R8,474.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch Ultra (2025) Blue</td><td>R8,474.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 Classic BT White</td><td>R6,519.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 44mm eSimSilver</td><td>R5,990.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 44mm eSim Dark Gray</td><td>R5,990.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 44mm BT Silver</td><td>R4,840.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 44mm BT DARK GRAY</td><td>R4,840.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 40mm eSim Silver</td><td>R5,990.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 40mm eSim Dark Gray</td><td>R5,990.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 40mm BT Silver</td><td>R4,840.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Watch 8 40mm BT Dark Gray</td><td>R4,840.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Buds 4 Pro Black</td><td>R3,667.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Buds 4 Pro White</td><td>R3,667.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Buds 4 Black</td><td>R2,574.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung Galaxy Buds 4 White</td><td>R2,574.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds3 FE BT Gray</td><td>R1,677.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds3 FE BT Black</td><td>R1,677.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds Core BT Black</td><td>R838.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds Core BT White</td><td>R838.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds 3 pro</td><td>R3,977.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds 3 pro</td><td>R3,977.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds 3</td><td>R2,781.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Galaxy Buds 3</td><td>R2,781.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung 75Inch  Crystal UHD 4K HDR Smart TV</td><td>R10,670.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung 65Inch  Crystal UHD 4K HDR Smart TV new</td><td>R7,669.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung 55Inch  4K UHD smart TV</td><td>R5,875.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Sasmung 75Inch  4K QLED smart AI TV</td><td>R12,740.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Samsung 65Inch  4K QLED smart AI TV</td><td>R9,946.35</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Sound Tower MX-ST40B</td><td>R3,080.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>55&quot; 4K QLED smart AI TV</td><td>R7,071.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Riro Watch W2SE</td><td>R435.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Vivo Watch GT</td><td>R2,528.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Vivo Watch 3 Black</td><td>R5,047.35</td><td class="comp">R159</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Vivo buds XE33A White</td><td>R573.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Vivo buds XE33A Blue</td><td>R573.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xbox Series S 1TB + 2 x Wireless Controller Black + Wired Headset</td><td>R14,948.85</td><td class="comp">R239</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Air Purifier 4 Compact</td><td>R2,344.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Vacuum  Cleaner G20 Lite</td><td>R3,000.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Standing Fan 2 Pro</td><td>R2,252.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>XIAOMI SMART SPEAKER</td><td>R872.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Pet Fountain 2 White</td><td>R1,309.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Pet Food Feeder 2 White</td><td>R1,988.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Multifunctional Rice Cooker</td><td>R1,125.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Humidifier 2 White</td><td>R1,677.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>XIAOMI Smart Camera C300 White</td><td>R1,079.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Camera C200 White</td><td>R700.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Bulb Essential</td><td>R240.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Band 9 Active</td><td>R619.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Smart Air Fryer 6.5L</td><td>R2,379.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Robot Vacuum S20 White</td><td>R4,000.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Robot Vacuum E5</td><td>R2,137.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Mi Stick</td><td>R826.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi Mi Smart Space Heater S</td><td>R2,735.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Redmi Watch 5 Active</td><td>R895.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Redmi Buds 6 Active</td><td>R435.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Mi Smart Standing  Fan 2</td><td>R1,689.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Mi Smart Kettle Pro</td><td>R1,022.35</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Xiaomi TV Box S (3rd Gen) 4K Ultra HD</td><td>R1,194.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+<tr data-brand="ACCESSORIES"><td>ACCESSORIES</td><td>Mi Camera 2K (Magnetic Mount)</td><td>R619.85</td><td class="comp">R80</td><td class="acc">—</td></tr>
+
+            </tbody>
+        </table>
+        </div>
+    </div>
+
     <footer><p>Vodacom Device Insurance | Ison Xperiences | For Agent Use Only | C2 General</p></footer>
 </div>
 
@@ -229,6 +1146,67 @@
 
         countEl.textContent = total > 0 ? total + ' match' + (total > 1 ? 'es' : '') : 'No matches';
     }
+
+    function filterPriceList() {
+        const q = document.getElementById('priceSearchInput').value.toLowerCase();
+        const brand = document.getElementById('brandFilter').value;
+        const rows = document.querySelectorAll('#priceTableBody tr');
+        let matchCount = 0;
+
+        rows.forEach(row => {
+            const rowBrand = row.getAttribute('data-brand');
+
+            // Remove existing highlights
+            row.querySelectorAll('mark.price-mark').forEach(m => {
+                m.replaceWith(document.createTextNode(m.textContent));
+            });
+            row.normalize();
+
+            const brandMatch = !brand || rowBrand === brand;
+            row.style.display = brandMatch ? '' : 'none';
+
+            if (brandMatch && q) {
+                let found = false;
+                row.querySelectorAll('td').forEach(td => {
+                    if (td.textContent.toLowerCase().includes(q)) {
+                        found = true;
+                        const walker = document.createTreeWalker(td, NodeFilter.SHOW_TEXT);
+                        const nodes = [];
+                        while (walker.nextNode()) nodes.push(walker.currentNode);
+                        nodes.forEach(node => {
+                            if (node.textContent.toLowerCase().includes(q)) {
+                                const regex = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                                const span = document.createElement('span');
+                                span.innerHTML = node.textContent.replace(regex, m => '<mark class="price-mark">' + m + '</mark>');
+                                node.parentNode.replaceChild(span, node);
+                            }
+                        });
+                    }
+                });
+                if (found) {
+                    matchCount++;
+                    row.style.backgroundColor = '#fffbe6';
+                } else {
+                    row.style.backgroundColor = '';
+                }
+            } else {
+                row.style.backgroundColor = '';
+            }
+        });
+
+        const countEl = document.getElementById('price-count');
+        if (q) {
+            countEl.textContent = matchCount + ' match' + (matchCount !== 1 ? 'es' : '');
+        } else {
+            const visible = [...rows].filter(r => r.style.display !== 'none').length;
+            countEl.textContent = visible + ' devices';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        filterPriceList();
+    });
+
 </script>
 </body>
 </html>
